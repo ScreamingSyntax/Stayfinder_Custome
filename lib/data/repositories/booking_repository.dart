@@ -24,6 +24,15 @@ class BookingRepository {
         paidAmount: paidAmount);
   }
 
+  Future<List<BookingRequest>> fetchBookingRequestHistory(
+      {required String token}) async {
+    return await _bookingApiProvider.fetchBookingRequestHistory(token: token);
+  }
+
+  Future<List<BookModel>> fetchBookingHistory({required String token}) async {
+    return await _bookingApiProvider.fetchBookingHistory(token: token);
+  }
+
   Future<Success> fetchBookRequests({
     required String token,
   }) async {

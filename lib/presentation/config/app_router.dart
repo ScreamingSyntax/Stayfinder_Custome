@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stayfinder_customer/presentation/screens/booking_history/booking_history.dart';
+import 'package:stayfinder_customer/presentation/screens/booking_requests_history/booking_request_history.dart';
 import 'package:stayfinder_customer/presentation/screens/screens_export.dart';
 
 import '../../logic/logic_exports.dart';
@@ -24,6 +26,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => BookScreen());
       case "/bookPayment":
         return MaterialPageRoute(builder: (_) => BookingPaymentScreen());
+      case "/bookHistory":
+        return MaterialPageRoute(builder: (_) => BookingHistoryScreen());
+      case "/bookRequestHistory":
+        return MaterialPageRoute(builder: (_) => BookingRequestHistoryScreen());
+      case "/wishList":
+        return MaterialPageRoute(builder: (_) => WishListScreen());
       case "/rentalScreenView":
         return MaterialPageRoute(
             builder: (_) => RentalRoomViewScreen(

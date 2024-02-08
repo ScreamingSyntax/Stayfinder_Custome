@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import '../data_exports.dart';
 
 class BookModel {
@@ -8,6 +11,7 @@ class BookModel {
   String? check_out;
   String? booked_on;
   String? paid_amount;
+  String? error;
   BookModel({
     this.id,
     this.room,
@@ -16,7 +20,12 @@ class BookModel {
     this.check_out,
     this.booked_on,
     this.paid_amount,
+    this.error,
   });
+
+  BookModel.withError(String error) {
+    this.error = error;
+  }
 
   BookModel copyWith({
     int? id,
@@ -26,6 +35,7 @@ class BookModel {
     String? check_out,
     String? booked_on,
     String? paid_amount,
+    String? error,
   }) {
     return BookModel(
       id: id ?? this.id,
@@ -35,6 +45,7 @@ class BookModel {
       check_out: check_out ?? this.check_out,
       booked_on: booked_on ?? this.booked_on,
       paid_amount: paid_amount ?? this.paid_amount,
+      error: error ?? this.error,
     );
   }
 
@@ -47,6 +58,7 @@ class BookModel {
       'check_out': check_out,
       'booked_on': booked_on,
       'paid_amount': paid_amount,
+      'error': error,
     };
   }
 
@@ -64,6 +76,7 @@ class BookModel {
       booked_on: map['booked_on'] != null ? map['booked_on'] as String : null,
       paid_amount:
           map['paid_amount'] != null ? map['paid_amount'] as String : null,
+      error: map['error'] != null ? map['error'] as String : null,
     );
   }
 
@@ -74,7 +87,7 @@ class BookModel {
 
   @override
   String toString() {
-    return 'Booked(id: $id, room: $room, user: $user, check_in: $check_in, check_out: $check_out, booked_on: $booked_on, paid_amount: $paid_amount)';
+    return 'BookModel(id: $id, room: $room, user: $user, check_in: $check_in, check_out: $check_out, booked_on: $booked_on, paid_amount: $paid_amount, error: $error)';
   }
 
   @override
@@ -87,7 +100,8 @@ class BookModel {
         other.check_in == check_in &&
         other.check_out == check_out &&
         other.booked_on == booked_on &&
-        other.paid_amount == paid_amount;
+        other.paid_amount == paid_amount &&
+        other.error == error;
   }
 
   @override
@@ -98,6 +112,7 @@ class BookModel {
         check_in.hashCode ^
         check_out.hashCode ^
         booked_on.hashCode ^
-        paid_amount.hashCode;
+        paid_amount.hashCode ^
+        error.hashCode;
   }
 }

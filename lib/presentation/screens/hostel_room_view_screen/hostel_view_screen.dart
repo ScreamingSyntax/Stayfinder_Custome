@@ -256,14 +256,13 @@ class HostelViewScreen extends StatelessWidget {
                                                                               .token!,
                                                                           roomId:
                                                                               room.id!);
-                                                                    context
-                                                                        .read<
-                                                                            FetchBookingRequestCubit>()
-                                                                        .fetchBookingRequests(
-                                                                          token: loginState
-                                                                              .user!
-                                                                              .token!,
-                                                                        );
+                                                                    context.read<
+                                                                        FetchBookingRequestCubit>()
+                                                                      ..fetchBookingRequests(
+                                                                        token: loginState
+                                                                            .user!
+                                                                            .token!,
+                                                                      );
                                                                     Navigator.of(
                                                                             context)
                                                                         .pop(); // Dismiss dialog and return true

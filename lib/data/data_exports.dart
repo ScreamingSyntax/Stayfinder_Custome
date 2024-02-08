@@ -14,3 +14,7 @@ export 'models/booking_model.dart';
 export 'models/room_accommodation_model.dart';
 export 'models/booking_request_model.dart';
 export 'repositories/booking_repository.dart';
+export 'models/wishlist_model.dart';
+export 'repositories/wishlist_repository.dart';
+export 'repositories/user_repository.dart';
+export 'apis/wishlist_api.dart';

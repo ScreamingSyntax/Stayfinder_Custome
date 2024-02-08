@@ -53,6 +53,52 @@ class BookingApiProvider {
     }
   }
 
+  Future<List<BookModel>> fetchBookingHistory({required String token}) async {
+    try {
+      final url = "${getIp()}book/book/history/";
+      final request = await http
+          .get(Uri.parse(url), headers: {"Authorization": "Token $token"});
+      final body = jsonDecode(request.body);
+      print(body);
+      if (body['success'] == 0) {
+        return [BookModel.withError(body["message"])];
+      }
+      print("Dadad");
+      // print(body["data"]);
+      if (body["data"] == []) {
+        return [];
+      }
+      return List.from(body["data"]).map((e) => BookModel.fromMap(e)).toList();
+    } catch (e) {
+      print(e);
+      return [BookModel.withError("Please Check Your Internet Connection")];
+    }
+  }
+
+  Future<List<BookingRequest>> fetchBookingRequestHistory(
+      {required String token}) async {
+    try {
+      final url = "${getIp()}book/request/history/";
+      final request = await http
+          .get(Uri.parse(url), headers: {"Authorization": "Token $token"});
+      final body = jsonDecode(request.body);
+      if (body['success'] == 0) {
+        return [BookingRequest.withError(body["message"])];
+      }
+
+      List<BookingRequest> requestLists = List.from(body["data"])
+          .map((e) => BookingRequest.fromMap(e))
+          .toList();
+
+      return requestLists;
+    } catch (e) {
+      print(e);
+      return [
+        BookingRequest.withError("Please Check Your Internet Connection")
+      ];
+    }
+  }
+
   Future<Success> fetchBookRequests({required String token}) async {
     try {
       final url = Uri.parse("${getIp()}book/");
@@ -64,6 +110,8 @@ class BookingApiProvider {
         },
       );
       final response = json.decode(request.body);
+      print(response);
+
       print(response.runtimeType);
       int success = response["success"];
       if (success == 1) {
@@ -73,6 +121,7 @@ class BookingApiProvider {
 
       return Success(success: 0, message: response["message"]);
     } catch (e) {
+      print(e);
       return Success(success: 0, message: "Check your internet connection");
     }
   }

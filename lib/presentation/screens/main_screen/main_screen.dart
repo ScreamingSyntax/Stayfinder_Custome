@@ -34,7 +34,7 @@ List<Widget> bodyScreens(BuildContext context) {
       HomeScreen(),
       MapScreen(),
       ChatScreen(),
-      WhishListScreen(),
+      BookStatusScreen(),
       AccountLoggedOutScreen()
     ];
   }
@@ -42,7 +42,7 @@ List<Widget> bodyScreens(BuildContext context) {
     HomeScreen(),
     MapScreen(),
     ChatScreen(),
-    WhishListScreen(),
+    BookStatusScreen(),
     AccountScreen()
   ];
 }

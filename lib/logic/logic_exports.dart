@@ -27,3 +27,5 @@ export 'cubits/direct_booking/direct_booking_cubit.dart';
 export 'package:stayfinder_customer/logic/cubits/image_helper/image_helper_cubit.dart';
 export 'cubits/store_book_details/store_book_details_cubit.dart';
 export 'cubits/request_booking/request_booking_cubit.dart';
+export 'cubits/fetch_booking_history/fetch_booking_history_cubit.dart';
+export 'cubits/fetch_booking_request_history/fetch_booking_request_history_cubit.dart';

@@ -3,7 +3,7 @@ import 'package:stayfinder_customer/logic/logic_exports.dart';
 import 'package:stayfinder_customer/presentation/screens/screens_export.dart';
 import 'package:stayfinder_customer/presentation/widgets/widgets_export.dart';
 
-class WhishListScreen extends StatelessWidget {
+class BookStatusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -13,7 +13,7 @@ class WhishListScreen extends StatelessWidget {
           builder: (context, state) {
             if (context.read<UserDetailsStorageBloc>().state.isLoggedIn ==
                 false) {
-              return WhishlistLoggedOutScreen();
+              return BookingsLoggedOutScreen();
             }
             if (state is FetchBookingRequestLoading) {
               return Column(
@@ -70,9 +70,41 @@ class WhishListScreen extends StatelessWidget {
                 },
                 child: SingleChildScrollView(
                   child: SizedBox(
-                    height: MediaQuery.of(context).size.height,
                     child: Column(
                       children: [
+                        if (state.bookedCustomers.length == 0 &&
+                            state.bookingRequests.length == 0)
+                          Column(
+                            children: [
+                              Text(
+                                "Your Bookings",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Container(
+                                height: 300,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            "assets/images/no_results_found.png"))),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "You haven't booked a place to stay yet.",
+                                  textAlign: TextAlign.center,
+                                  style:
+                                      TextStyle(fontSize: 12, wordSpacing: 2),
+                                ),
+                              )
+                            ],
+                          ),
                         CurrentBookings(state),
                         SizedBox(
                           height: 20,
@@ -96,36 +128,17 @@ class WhishListScreen extends StatelessWidget {
   Column BookingRequests(FetchBookingRequestSuccesss state) {
     return Column(
       children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: CustomRedHatFont(
-              text: "Your Requests", fontWeight: FontWeight.w600, fontSize: 18),
-        ),
+        if (state.bookingRequests.length != 0)
+          Align(
+            alignment: Alignment.center,
+            child: CustomRedHatFont(
+                text: "Your Requests",
+                fontWeight: FontWeight.w600,
+                fontSize: 18),
+          ),
         SizedBox(
           height: 19,
         ),
-        if (state.bookingRequests.length == 0)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "   -  No Requests Yet",
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: UsedColors.mainColor,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-            ],
-          ),
         ListView.builder(
             itemCount: state.bookingRequests.length,
             shrinkWrap: true,
@@ -202,38 +215,17 @@ class WhishListScreen extends StatelessWidget {
   Column CurrentBookings(FetchBookingRequestSuccesss state) {
     return Column(
       children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: CustomRedHatFont(
-              text: "Currently Booked",
-              fontWeight: FontWeight.w600,
-              fontSize: 18),
-        ),
+        if (state.bookedCustomers.length != 0)
+          Align(
+            alignment: Alignment.center,
+            child: CustomRedHatFont(
+                text: "Currently Booked",
+                fontWeight: FontWeight.w600,
+                fontSize: 18),
+          ),
         SizedBox(
           height: 19,
         ),
-        if (state.bookedCustomers.length == 0)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "   - No Bookings Yet",
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: UsedColors.mainColor,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-            ],
-          ),
         ListView.builder(
             itemCount: state.bookedCustomers.length,
             shrinkWrap: true,
@@ -270,8 +262,8 @@ class WhishListScreen extends StatelessWidget {
   }
 }
 
-class WhishlistLoggedOutScreen extends StatelessWidget {
-  const WhishlistLoggedOutScreen({
+class BookingsLoggedOutScreen extends StatelessWidget {
+  const BookingsLoggedOutScreen({
     super.key,
   });
 

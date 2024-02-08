@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stayfinder_customer/constants/ip.dart';
 import 'package:stayfinder_customer/logic/logic_exports.dart';
+import 'package:stayfinder_customer/presentation/screens/booking_history/booking_history.dart';
 import 'package:stayfinder_customer/presentation/screens/screens_export.dart';
 import 'package:stayfinder_customer/presentation/theme/colors.dart';
 import 'package:stayfinder_customer/presentation/widgets/widgets_export.dart';
@@ -41,39 +42,68 @@ class AccountScreen extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            Row(
-              children: [
-                AccountSmallCards(
-                  topWidget: Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/images/booking.png"))),
-                  ),
-                  text: "Booking",
-                ),
-                SizedBox(
-                  width: 30,
-                ),
-                AccountSmallCards(
-                  topWidget: Icon(
-                    IconlyBold.activity,
-                    size: 41,
-                    color: UsedColors.mainColor,
-                  ),
-                  text: "Booking",
-                ),
-                SizedBox(
-                  width: 30,
-                ),
-                AccountSmallCards(
-                  topWidget: Icon(
-                    IconlyLight.notification,
-                    size: 41,
-                    color: UsedColors.mainColor,
-                  ),
-                  text: "Notifications",
-                ),
-              ],
+            BlocBuilder<UserDetailsStorageBloc, UserDetailsStorageState>(
+              builder: (context, state) {
+                return Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        context.read<FetchBookingHistoryCubit>()
+                          ..fetchBookingHistory(token: state.user!.token!);
+                        Navigator.pushNamed(context, "/bookHistory");
+                      },
+                      child: AccountSmallCards(
+                        topWidget: Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage("assets/images/booking.png"))),
+                        ),
+                        text: "Booking",
+                      ),
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    BlocBuilder<FetchBookingRequestHistoryCubit,
+                        FetchBookingRequestHistoryState>(
+                      builder: (context, state2) {
+                        return InkWell(
+                          onTap: () {
+                            context.read<FetchBookingRequestHistoryCubit>()
+                              ..fetchBookingRequestHistory(
+                                  token: state.user!.token!);
+
+                            Navigator.pushNamed(context, "/bookRequestHistory");
+                          },
+                          child: AccountSmallCards(
+                            topWidget: Icon(
+                              IconlyBold.activity,
+                              size: 41,
+                              color: UsedColors.mainColor,
+                            ),
+                            text: "Requests",
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: AccountSmallCards(
+                        topWidget: Icon(
+                          IconlyLight.document,
+                          size: 41,
+                          color: UsedColors.mainColor,
+                        ),
+                        text: "WishLists",
+                      ),
+                    ),
+                  ],
+                );
+              },
             )
           ],
         ),

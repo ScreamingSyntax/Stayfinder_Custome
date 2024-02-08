@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:stayfinder_customer/data/data_exports.dart';
 
 class BookingRequest {
@@ -5,20 +8,27 @@ class BookingRequest {
   RoomAccommodation? room;
   UserModel? user;
   String? status;
+  String? error;
   String? requested_on;
   BookingRequest({
     this.id,
     this.room,
     this.user,
     this.status,
+    this.error,
     this.requested_on,
   });
+
+  BookingRequest.withError(String error) {
+    this.error = error;
+  }
 
   BookingRequest copyWith({
     int? id,
     RoomAccommodation? room,
     UserModel? user,
     String? status,
+    String? error,
     String? requested_on,
   }) {
     return BookingRequest(
@@ -26,6 +36,7 @@ class BookingRequest {
       room: room ?? this.room,
       user: user ?? this.user,
       status: status ?? this.status,
+      error: error ?? this.error,
       requested_on: requested_on ?? this.requested_on,
     );
   }
@@ -36,6 +47,7 @@ class BookingRequest {
       'room': room?.toMap(),
       'user': user?.toMap(),
       'status': status,
+      'error': error,
       'requested_on': requested_on,
     };
   }
@@ -50,6 +62,7 @@ class BookingRequest {
           ? UserModel.fromMap(map['user'] as Map<String, dynamic>)
           : null,
       status: map['status'] != null ? map['status'] as String : null,
+      error: map['error'] != null ? map['error'] as String : null,
       requested_on:
           map['requested_on'] != null ? map['requested_on'] as String : null,
     );
@@ -62,7 +75,7 @@ class BookingRequest {
 
   @override
   String toString() {
-    return 'Booking(id: $id, room: $room, user: $user, status: $status, requested_on: $requested_on)';
+    return 'BookingRequest(id: $id, room: $room, user: $user, status: $status, error: $error, requested_on: $requested_on)';
   }
 
   @override
@@ -73,6 +86,7 @@ class BookingRequest {
         other.room == room &&
         other.user == user &&
         other.status == status &&
+        other.error == error &&
         other.requested_on == requested_on;
   }
 
@@ -82,6 +96,7 @@ class BookingRequest {
         room.hashCode ^
         user.hashCode ^
         status.hashCode ^
+        error.hashCode ^
         requested_on.hashCode;
   }
 }
