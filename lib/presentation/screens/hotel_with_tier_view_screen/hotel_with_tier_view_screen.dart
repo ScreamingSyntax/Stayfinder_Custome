@@ -110,6 +110,25 @@ class HotelWithTierViewScreen extends StatelessWidget {
                                                     room: hotelTier[index]
                                                         .rooms![roomIndex]!,
                                                     onPressed: () {
+                                                      if (context
+                                                              .read<
+                                                                  UserDetailsStorageBloc>()
+                                                              .state
+                                                              .isLoggedIn ==
+                                                          false) {
+                                                        showPopup(
+                                                            context: context,
+                                                            description:
+                                                                "You need to Login First",
+                                                            title:
+                                                                "Login Required",
+                                                            type:
+                                                                ToastificationType
+                                                                    .error);
+                                                        Navigator.pushNamed(
+                                                            context, "/login");
+                                                        return;
+                                                      }
                                                       context.read<
                                                           StoreBookDetailsCubit>()
                                                         ..clearEverything();

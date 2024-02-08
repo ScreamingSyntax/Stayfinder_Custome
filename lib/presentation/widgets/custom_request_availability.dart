@@ -7,7 +7,7 @@ class BottomRequestAvailability extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -15,8 +15,8 @@ class BottomRequestAvailability extends StatelessWidget {
               width: MediaQuery.of(context).size.width / 2.3,
               child: Icon(IconlyBold.heart)),
           MaterialButton(
-            minWidth: MediaQuery.of(context).size.width / 2,
-            height: 58,
+            minWidth: MediaQuery.of(context).size.width / 3,
+            height: 48,
             onPressed: onPressed,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),

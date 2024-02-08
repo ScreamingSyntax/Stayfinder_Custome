@@ -16,6 +16,7 @@ class BookingRepository {
       required int paidAmount,
       int? requestID}) async {
     return await _bookingApiProvider.directBookingRequests(
+        requestID: requestID,
         token: token,
         roomId: roomId,
         checkIn: checkIn,

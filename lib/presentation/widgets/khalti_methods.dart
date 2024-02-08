@@ -46,6 +46,9 @@ void showPaymentResult(BuildContext context, String title,
                 ),
               ),
               onPressed: () {
+                context
+                    .read<FetchBookingRequestCubit>()
+                    .fetchBookingRequests(token: token);
                 popMultipleScreens(context, 4);
               })
         ],
@@ -78,7 +81,7 @@ void payWithKhaltiInApp(
     required String token,
     String? requestId}) {
   final config = PaymentConfig(
-    amount: 101,
+    amount: 2000,
     productIdentity: roomId.toString(),
     productName: accommodationName,
   );

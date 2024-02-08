@@ -199,6 +199,23 @@ class HostelViewScreen extends StatelessWidget {
                                           children: [
                                             SlidableAction(
                                               onPressed: (context) async {
+                                                if (context
+                                                        .read<
+                                                            UserDetailsStorageBloc>()
+                                                        .state
+                                                        .isLoggedIn ==
+                                                    false) {
+                                                  showPopup(
+                                                      context: context,
+                                                      description:
+                                                          "You need to Login First",
+                                                      title: "Login Required",
+                                                      type: ToastificationType
+                                                          .error);
+                                                  Navigator.pushNamed(
+                                                      context, "/login");
+                                                  return;
+                                                }
                                                 var loginState = context
                                                     .read<
                                                         UserDetailsStorageBloc>()

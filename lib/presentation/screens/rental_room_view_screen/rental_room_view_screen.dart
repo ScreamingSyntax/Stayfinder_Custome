@@ -38,6 +38,16 @@ class RentalRoomViewScreen extends StatelessWidget {
       },
       child: Scaffold(
         bottomNavigationBar: BottomNavBarCheck(context, () async {
+          if (context.read<UserDetailsStorageBloc>().state.isLoggedIn ==
+              false) {
+            showPopup(
+                context: context,
+                description: "You need to Login First",
+                title: "Login Required",
+                type: ToastificationType.error);
+            Navigator.pushNamed(context, "/login");
+            return;
+          }
           var loginState = context.read<UserDetailsStorageBloc>().state;
           bool confirmed = await showDialog(
                 context: context,

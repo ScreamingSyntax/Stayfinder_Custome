@@ -37,12 +37,15 @@ class BookingApiProvider {
       request.fields["check_in"] = checkIn;
       request.fields["check_out"] = checkOut;
       request.fields["paid_amount"] = paidAmount.toString();
+      print("Request id ${requestID}");
       if (requestID != null) {
+        print("nigga");
         request.fields["request_id"] = requestID.toString();
       }
       final response = await request.send();
       final finalResponse = await http.Response.fromStream(response);
       final responseData = jsonDecode(finalResponse.body);
+      print("The  resposne is ${responseData}");
       return Success.fromMap(responseData);
     } catch (e) {
       return Success(

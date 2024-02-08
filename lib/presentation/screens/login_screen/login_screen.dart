@@ -156,9 +156,9 @@ class LoginScreen extends StatelessWidget {
                           context.read<BooleanChangeCubit>().change();
                         },
                         obscureText:
-                            context.watch<BooleanChangeCubit>().state.value,
+                            !context.watch<BooleanChangeCubit>().state.value,
                         suffixIcon:
-                            !context.watch<BooleanChangeCubit>().state.value
+                            context.watch<BooleanChangeCubit>().state.value
                                 ? Icons.remove_red_eye
                                 : CupertinoIcons.eye_slash_fill,
                       );

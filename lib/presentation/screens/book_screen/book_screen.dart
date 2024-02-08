@@ -258,7 +258,7 @@ class BookScreen extends StatelessWidget {
         } else {
           DateTime checkInDate = format.parse(checkIn);
           int stayMonths = int.parse(monthsCount.text);
-          DateTime checkOutDate = calculateCheckOutDate(checkIn, stayMonths);
+          String checkOutDate = calculateCheckOutDate(checkIn, stayMonths);
           print("This is Check oout date ${checkOutDate}");
           if (checkInDate.isBefore(today)) {
             showPopup(

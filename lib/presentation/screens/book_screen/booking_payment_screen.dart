@@ -195,28 +195,33 @@ class RentalAndHostelRoomBookingCard extends StatelessWidget {
               height: 45,
               onPressed: () {
                 var loginState = context.read<UserDetailsStorageBloc>().state;
-
+                print(state.accommodation!.type!);
                 if (state.accommodation!.type == "hostel") {
+                  print("The request id is ${state.requestId}");
                   payWithKhaltiInApp(
                       context: context,
                       roomId: state.room!.id!,
+                      requestId: state.requestId.toString(),
                       checkIn: state.checkIn!,
                       checkOut: state.checkOut!,
                       paidAmount: state.room!.monthly_rate! * state.monthCount!,
                       accommodationName: state.accommodation!.name!,
                       token: loginState.user!.token!);
-                } else {
-                  if (state.accommodation!.type == "hostel") {
-                    payWithKhaltiInApp(
-                        context: context,
-                        roomId: state.room!.id!,
-                        checkIn: state.checkIn!,
-                        checkOut: state.checkOut!,
-                        paidAmount: state.accommodation!.monthly_rate! *
-                            state.monthCount!,
-                        accommodationName: state.accommodation!.name!,
-                        token: loginState.user!.token!);
-                  }
+                  // } else {
+                }
+                if (state.accommodation!.type == "rent_room") {
+                  print("The request id  ${state.requestId}");
+
+                  payWithKhaltiInApp(
+                      context: context,
+                      roomId: state.room!.id!,
+                      requestId: state.requestId.toString(),
+                      checkIn: state.checkIn!,
+                      checkOut: state.checkOut!,
+                      paidAmount: state.accommodation!.monthly_rate! *
+                          state.monthCount!,
+                      accommodationName: state.accommodation!.name!,
+                      token: loginState.user!.token!);
                 }
               },
               text: "Confirm",

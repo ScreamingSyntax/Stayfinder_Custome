@@ -1,10 +1,11 @@
 import 'package:intl/intl.dart';
 
-DateTime calculateCheckOutDate(String checkIn, int stayMonths) {
+String calculateCheckOutDate(String checkIn, int stayMonths) {
   DateFormat format = DateFormat("yyyy-MM-dd");
   DateTime checkInDate = format.parse(checkIn);
   DateTime checkOutDate = DateTime(
       checkInDate.year, checkInDate.month + stayMonths, checkInDate.day);
+  String formattedCheckOutDate = DateFormat("yyyy-MM-dd").format(checkOutDate);
 
-  return checkOutDate;
+  return formattedCheckOutDate;
 }

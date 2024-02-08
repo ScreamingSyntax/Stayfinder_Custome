@@ -69,14 +69,17 @@ class WhishListScreen extends StatelessWidget {
                       );
                 },
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      CurrentBookings(state),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      BookingRequests(state),
-                    ],
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    child: Column(
+                      children: [
+                        CurrentBookings(state),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        BookingRequests(state),
+                      ],
+                    ),
                   ),
                 ),
               );
@@ -96,11 +99,33 @@ class WhishListScreen extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: CustomRedHatFont(
-              text: "Your Requests", fontWeight: FontWeight.w600, fontSize: 24),
+              text: "Your Requests", fontWeight: FontWeight.w600, fontSize: 18),
         ),
         SizedBox(
           height: 19,
         ),
+        if (state.bookingRequests.length == 0)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "   -  No Requests Yet",
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: UsedColors.mainColor,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
         ListView.builder(
             itemCount: state.bookingRequests.length,
             shrinkWrap: true,
@@ -182,11 +207,33 @@ class WhishListScreen extends StatelessWidget {
           child: CustomRedHatFont(
               text: "Currently Booked",
               fontWeight: FontWeight.w600,
-              fontSize: 24),
+              fontSize: 18),
         ),
         SizedBox(
           height: 19,
         ),
+        if (state.bookedCustomers.length == 0)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "   - No Bookings Yet",
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: UsedColors.mainColor,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
         ListView.builder(
             itemCount: state.bookedCustomers.length,
             shrinkWrap: true,
@@ -197,6 +244,7 @@ class WhishListScreen extends StatelessWidget {
               RoomAccommodation room = bookModel.room!;
               return Column(
                 children: [
+                  // Text(data)
                   SizedBox(
                     height: 10,
                   ),
