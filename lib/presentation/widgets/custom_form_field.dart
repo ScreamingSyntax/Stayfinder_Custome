@@ -43,7 +43,7 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       onTapOutside: onTapOutside,
       validator: validator,
-      obscureText: obscureText ?? true,
+      obscureText: obscureText ?? false,
       onSaved: onSaved ?? null,
       decoration: InputDecoration(
           enabled: isEnabled ?? true,

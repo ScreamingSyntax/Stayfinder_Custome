@@ -1,7 +1,5 @@
-import 'package:iconly/iconly.dart';
 import 'package:stayfinder_customer/logic/logic_exports.dart';
 import 'package:stayfinder_customer/presentation/screens/screens_export.dart';
-import 'package:stayfinder_customer/presentation/theme/colors.dart';
 import 'package:stayfinder_customer/presentation/widgets/widgets_export.dart';
 
 class MainScreen extends StatelessWidget {
@@ -21,7 +19,6 @@ class MainScreen extends StatelessWidget {
         },
         items: getItems(),
       ),
-      // bottomNavigationBar: BottomNavigationBar(items: )
       body: BlocBuilder<NavBarIndexCubit, NavBarIndexState>(
         builder: (context, state) {
           return bodyScreens(context)[state.index];

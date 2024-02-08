@@ -109,6 +109,29 @@ class HotelWithTierViewScreen extends StatelessWidget {
                                                   child: HotelWithTierRoomCard(
                                                     room: hotelTier[index]
                                                         .rooms![roomIndex]!,
+                                                    onPressed: () {
+                                                      context.read<
+                                                          StoreBookDetailsCubit>()
+                                                        ..clearEverything();
+                                                      print(
+                                                          "The room si ${hotelTier[index].rooms![index]}");
+                                                      context.read<
+                                                          StoreBookDetailsCubit>()
+                                                        ..storeRoomDetails(
+                                                            room:
+                                                                hotelTier[index]
+                                                                        .rooms![
+                                                                    roomIndex],
+                                                            roomId: hotelTier[
+                                                                    index]
+                                                                .rooms![
+                                                                    roomIndex]!
+                                                                .id!,
+                                                            accommodation:
+                                                                accommodation);
+                                                      Navigator.pushNamed(
+                                                          context, "/book");
+                                                    },
                                                   ),
                                                 );
                                               }),
@@ -245,8 +268,10 @@ class CustomHotelTierDescriptionCard extends StatelessWidget {
 }
 
 class HotelWithTierRoomCard extends StatelessWidget {
+  final void Function() onPressed;
   const HotelWithTierRoomCard({
     super.key,
+    required this.onPressed,
     required this.room,
   });
 
@@ -354,7 +379,7 @@ class HotelWithTierRoomCard extends StatelessWidget {
                       ),
                       CustomMaterialButton(
                           height: 39,
-                          onPressed: () {},
+                          onPressed: onPressed,
                           text: "Book",
                           width: 120)
                     ],

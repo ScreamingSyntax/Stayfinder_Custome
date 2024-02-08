@@ -20,6 +20,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => RegistrationScreen());
       case "/otp":
         return MaterialPageRoute(builder: (_) => OtpScreen());
+      case "/book":
+        return MaterialPageRoute(builder: (_) => BookScreen());
+      case "/bookPayment":
+        return MaterialPageRoute(builder: (_) => BookingPaymentScreen());
       case "/rentalScreenView":
         return MaterialPageRoute(
             builder: (_) => RentalRoomViewScreen(

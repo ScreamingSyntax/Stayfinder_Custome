@@ -9,3 +9,8 @@ export 'models/hotel_tier_model.dart';
 export 'models/room_model.dart';
 export 'package:flutter/foundation.dart';
 export 'models/room_image_model.dart';
+export 'apis/booking_api.dart';
+export 'models/booking_model.dart';
+export 'models/room_accommodation_model.dart';
+export 'models/booking_request_model.dart';
+export 'repositories/booking_repository.dart';

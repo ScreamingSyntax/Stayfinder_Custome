@@ -198,6 +198,7 @@ class RegistrationForms extends StatelessWidget {
       children: [
         CustomTextFormField(
           controller: name,
+          obscureText: false,
           borderColor: UsedColors.fadeOutColor,
           hintText: "Name",
           borderRadius: 10,
@@ -252,7 +253,7 @@ class RegistrationForms extends StatelessWidget {
               suffixIconOnPressed: () {
                 context.read<BooleanChangeCubit>().change();
               },
-              obscureText: context.watch<BooleanChangeCubit>().state.value,
+              obscureText: !context.watch<BooleanChangeCubit>().state.value,
               suffixIcon: !context.watch<BooleanChangeCubit>().state.value
                   ? Icons.remove_red_eye
                   : CupertinoIcons.eye_slash_fill,
@@ -285,7 +286,7 @@ class RegistrationForms extends StatelessWidget {
               suffixIconOnPressed: () {
                 context.read<BooleanChangeCubit>().change();
               },
-              obscureText: context.watch<BooleanChangeCubit>().state.value,
+              obscureText: !context.watch<BooleanChangeCubit>().state.value,
               suffixIcon: !context.watch<BooleanChangeCubit>().state.value
                   ? Icons.remove_red_eye
                   : CupertinoIcons.eye_slash_fill,

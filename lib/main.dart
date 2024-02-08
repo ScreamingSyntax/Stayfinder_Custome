@@ -1,4 +1,4 @@
-import 'package:stayfinder_customer/logic/cubits/image_helper/image_helper_cubit.dart';
+import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:stayfinder_customer/logic/logic_exports.dart';
 import 'package:stayfinder_customer/presentation/config/app_router.dart';
 import 'package:stayfinder_customer/presentation/widgets/widgets_export.dart';
@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => OnBoardingBloc()),
         BlocProvider(create: (context) => CustomerRegistrationCubit()),
         BlocProvider(create: (context) => BooleanChangeCubit()),
+        BlocProvider(create: (context) => StoreBookDetailsCubit()),
         BlocProvider(
             create: (context) => ImageHelperCubit()
               ..imageHelperAccess(imageHelper: ImageHelper())),
@@ -41,13 +42,23 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ParticularAccommodationCubit()),
         BlocProvider(create: (context) => FetchSearchResultsCubit()),
         BlocProvider(create: (context) => StoreSearchCubit()),
+        BlocProvider(create: (context) => FetchBookingRequestCubit()),
+        BlocProvider(create: (context) => DirectBookingCubit()),
+        BlocProvider(create: (context) => RequestBookingCubit())
       ],
-      child: MaterialApp(
-        theme: ThemeData(useMaterial3: true, fontFamily: 'Poppins'),
-        debugShowCheckedModeBanner: false,
-        title: 'StayFinder-Customer',
-        onGenerateRoute: appRouter.routeSettings,
-      ),
+      child: KhaltiScope(
+          publicKey: "test_public_key_0238ecd9cab54ca29a0c6d523ddb0d3c",
+          enabledDebugging: true,
+          builder: (context, navKey) {
+            return MaterialApp(
+              navigatorKey: navKey,
+              theme: ThemeData(useMaterial3: true, fontFamily: 'Poppins'),
+              debugShowCheckedModeBanner: false,
+              title: 'StayFinder-Customer',
+              onGenerateRoute: appRouter.routeSettings,
+              localizationsDelegates: const [KhaltiLocalizations.delegate],
+            );
+          }),
     );
   }
 }

@@ -94,6 +94,7 @@ class HotelWithoutTierViewScreen extends StatelessWidget {
                                   padding: const EdgeInsets.all(8.0),
                                   child: HotelWithoutTierRoomCard(
                                     room: rooms[index],
+                                    accommodation: accommodation,
                                   ),
                                 );
                               },
@@ -117,12 +118,11 @@ class HotelWithoutTierViewScreen extends StatelessWidget {
 }
 
 class HotelWithoutTierRoomCard extends StatelessWidget {
-  const HotelWithoutTierRoomCard({
-    super.key,
-    required this.room,
-  });
+  const HotelWithoutTierRoomCard(
+      {super.key, required this.room, required this.accommodation});
 
   final Room room;
+  final Accommodation accommodation;
 
   @override
   Widget build(BuildContext context) {
@@ -269,7 +269,17 @@ class HotelWithoutTierRoomCard extends StatelessWidget {
                       ),
                       CustomMaterialButton(
                           height: 39,
-                          onPressed: () {},
+                          onPressed: () {
+                            context.read<StoreBookDetailsCubit>()
+                              ..clearEverything();
+                            print("The room si ${room}");
+                            context.read<StoreBookDetailsCubit>()
+                              ..storeRoomDetails(
+                                  room: room,
+                                  roomId: room.id!,
+                                  accommodation: accommodation);
+                            Navigator.pushNamed(context, "/book");
+                          },
                           text: "Book",
                           width: 120)
                     ],
