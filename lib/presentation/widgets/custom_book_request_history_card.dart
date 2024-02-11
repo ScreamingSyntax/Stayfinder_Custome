@@ -1,3 +1,5 @@
+import 'package:stayfinder_customer/constants/ip.dart';
+import 'package:stayfinder_customer/presentation/screens/screens_export.dart';
 import 'package:stayfinder_customer/presentation/widgets/widgets_export.dart';
 
 class CardBookHistoryRequestCard extends StatelessWidget {
@@ -9,7 +11,7 @@ class CardBookHistoryRequestCard extends StatelessWidget {
   final String ratings;
   final String accommodationType;
   final String location;
-
+  final String image;
   const CardBookHistoryRequestCard({
     super.key,
     required this.name,
@@ -20,6 +22,7 @@ class CardBookHistoryRequestCard extends StatelessWidget {
     required this.requestId,
     required this.roomId,
     required this.status,
+    required this.image,
   });
 
   @override
@@ -41,15 +44,38 @@ class CardBookHistoryRequestCard extends StatelessWidget {
       height: 186,
       child: Row(
         children: [
-          Container(
-            width: 117,
-            height: 117,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/images/soaltee.png"))),
-          ),
+          CachedNetworkImage(
+              key: UniqueKey(),
+              imageUrl: "${getIpNoBackSlash()}${image}",
+              maxHeightDiskCache: 200,
+              imageBuilder: (context, imageProvider) {
+                return Container(
+                  width: 117,
+                  height: 117,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      image: DecorationImage(
+                          fit: BoxFit.cover, image: imageProvider)),
+                );
+              },
+              placeholder: (context, url) => Container(
+                    width: 117,
+                    height: 117,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage("assets/logos/logo.png"))),
+                  ),
+              errorWidget: (context, url, error) => Container(
+                    width: 117,
+                    height: 117,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage("assets/logos/logo.png"))),
+                  )),
           Expanded(
               child: Padding(
             padding: const EdgeInsets.all(20.0),

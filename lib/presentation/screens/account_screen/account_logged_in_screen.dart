@@ -91,7 +91,16 @@ class AccountScreen extends StatelessWidget {
                       width: 30,
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        context.read<FetchWishlistCubit>()
+                          ..fetchWishlist(
+                              token: context
+                                  .read<UserDetailsStorageBloc>()
+                                  .state
+                                  .user!
+                                  .token!);
+                        Navigator.pushNamed(context, "/wishList");
+                      },
                       child: AccountSmallCards(
                         topWidget: Icon(
                           IconlyLight.document,

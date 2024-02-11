@@ -47,6 +47,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => RequestBookingCubit()),
         BlocProvider(create: (context) => FetchBookingHistoryCubit()),
         BlocProvider(create: (context) => FetchBookingRequestHistoryCubit()),
+        BlocProvider(create: (context) => AddToWishlistCubit()),
+        BlocProvider(create: (context) => FetchWishlistCubit()),
+        BlocProvider(create: (context) => DeleteReviewCubit()),
+        BlocProvider(create: (context) => FetchAddedReviewsCubit()),
+        BlocProvider(create: (context) => FetchAccommodationReviewsCubit()),
+        BlocProvider(create: (context) => UpdateReviewCubit()),
+        BlocProvider(create: (context) => AddReviewCubit()),
       ],
       child: KhaltiScope(
           publicKey: "test_public_key_0238ecd9cab54ca29a0c6d523ddb0d3c",

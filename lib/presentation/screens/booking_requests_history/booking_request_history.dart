@@ -96,6 +96,7 @@ class BookingRequestHistoryScreen extends StatelessWidget {
                                   height: 10,
                                 ),
                                 CardBookHistoryRequestCard(
+                                  image: accommodation.image!,
                                   roomId: bookModel.room!.id!,
                                   requestId: bookModel.id!,
                                   status: bookModel.status!,

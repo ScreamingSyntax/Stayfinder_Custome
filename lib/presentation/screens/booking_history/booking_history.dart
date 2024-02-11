@@ -91,11 +91,11 @@ class BookingHistoryScreen extends StatelessWidget {
                           RoomAccommodation room = bookModel.room!;
                           return Column(
                             children: [
-                              // Text(data)
                               SizedBox(
                                 height: 10,
                               ),
                               CurrentlyBookedCard(
+                                image: accommodation.image!,
                                 accommodationType: accommodation.type!,
                                 date:
                                     "${bookModel.check_in} - ${bookModel.check_out}",

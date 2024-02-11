@@ -1,6 +1,10 @@
 import 'package:stayfinder_customer/presentation/widgets/widgets_export.dart';
 
+import '../../constants/ip.dart';
+import '../screens/screens_export.dart';
+
 class CurrentlyBookedCard extends StatelessWidget {
+  final String image;
   final String name;
   final String price;
   final String roomBookedDetails;
@@ -10,6 +14,7 @@ class CurrentlyBookedCard extends StatelessWidget {
   final String date;
   const CurrentlyBookedCard({
     super.key,
+    required this.image,
     required this.price,
     required this.name,
     required this.roomBookedDetails,
@@ -38,15 +43,47 @@ class CurrentlyBookedCard extends StatelessWidget {
       height: 166,
       child: Row(
         children: [
-          Container(
-            width: 117,
-            height: 117,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/images/soaltee.png"))),
-          ),
+          CachedNetworkImage(
+              key: UniqueKey(),
+              imageUrl: "${getIpNoBackSlash()}${image}",
+              maxHeightDiskCache: 200,
+              imageBuilder: (context, imageProvider) {
+                return Container(
+                  width: 117,
+                  height: 117,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      image: DecorationImage(
+                          fit: BoxFit.cover, image: imageProvider)),
+                );
+              },
+              placeholder: (context, url) => Container(
+                    width: 117,
+                    height: 117,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage("assets/logos/logo.png"))),
+                  ),
+              errorWidget: (context, url, error) => Container(
+                    width: 117,
+                    height: 117,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage("assets/logos/logo.png"))),
+                  )),
+          // Container(
+          //   width: 117,
+          //   height: 117,
+          //   decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(10),
+          //       image: DecorationImage(
+          //           fit: BoxFit.cover,
+          //           image: AssetImage("assets/images/soaltee.png"))),
+          // ),
           Expanded(
               child: Padding(
             padding: const EdgeInsets.all(20.0),

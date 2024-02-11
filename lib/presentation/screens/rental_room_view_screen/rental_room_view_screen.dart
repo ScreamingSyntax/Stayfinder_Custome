@@ -11,90 +11,109 @@ class RentalRoomViewScreen extends StatelessWidget {
   const RentalRoomViewScreen({super.key, required this.data});
   @override
   Widget build(BuildContext context) {
-    return BlocListener<RequestBookingCubit, RequestBookingState>(
-      listener: (context, state) {
-        // TODO: implement listener
-        if (state is RequestBookingLoading) {
-          showPopup(
-              context: context,
-              description: "Requesting Please Wait...",
-              title: "Loading...",
-              type: ToastificationType.info);
-        }
-        if (state is RequestBookingError) {
-          showPopup(
-              context: context,
-              description: state.message,
-              title: "Error",
-              type: ToastificationType.error);
-        }
-        if (state is RequestBookingSuccess) {
-          showPopup(
-              context: context,
-              description: state.message,
-              title: "Success",
-              type: ToastificationType.success);
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<RequestBookingCubit, RequestBookingState>(
+          listener: (context, state) {
+            if (state is RequestBookingError) {
+              showPopup(
+                  context: context,
+                  description: state.message,
+                  title: "Error",
+                  type: ToastificationType.error);
+            }
+            if (state is RequestBookingSuccess) {
+              showPopup(
+                  context: context,
+                  description: state.message,
+                  title: "Success",
+                  type: ToastificationType.success);
+            }
+          },
+        ),
+        BlocListener<AddToWishlistCubit, AddToWishlistState>(
+          listener: (context, state) {
+            // TODO: implement listener
+
+            if (state is AddToWishlistError) {
+              showPopup(
+                  context: context,
+                  description: state.message,
+                  title: "Oops..",
+                  type: ToastificationType.error);
+            }
+            if (state is AddToWishlistSuccess) {
+              showPopup(
+                  context: context,
+                  description: state.message,
+                  title: "Success",
+                  type: ToastificationType.success);
+            }
+          },
+        ),
+      ],
       child: Scaffold(
-        bottomNavigationBar: BottomNavBarCheck(context, () async {
-          if (context.read<UserDetailsStorageBloc>().state.isLoggedIn ==
-              false) {
-            showPopup(
-                context: context,
-                description: "You need to Login First",
-                title: "Login Required",
-                type: ToastificationType.error);
-            Navigator.pushNamed(context, "/login");
-            return;
-          }
-          var loginState = context.read<UserDetailsStorageBloc>().state;
-          bool confirmed = await showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text('Confirmation'),
-                    content: Text('Are you sure you want to proceed?'),
-                    actions: <Widget>[
-                      TextButton(
-                        child: Text('Cancel'),
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pop(false); // Dismiss dialog and return false
-                        },
-                      ),
-                      BlocBuilder<ParticularAccommodationCubit,
-                          ParticularAccommodationState>(
-                        builder: (context, state) {
-                          if (state is ParticularAccommodationLoaded) {
-                            return TextButton(
-                              child: Text('Confirm'),
-                              onPressed: () {
-                                context.read<RequestBookingCubit>()
-                                  ..requestBooking(
-                                      token: loginState.user!.token!,
-                                      roomId: state.rooms![0].id!);
-                                context
-                                    .read<FetchBookingRequestCubit>()
-                                    .fetchBookingRequests(
-                                      token: loginState.user!.token!,
-                                    );
-                                Navigator.of(context)
-                                    .pop(); // Dismiss dialog and return true
-                              },
-                            );
-                          }
-                          return InkWell(
-                              onTap: () => Navigator.pop(context),
-                              child: Text("Please Wait"));
-                        },
-                      ),
-                    ],
-                  );
-                },
-              ) ??
-              false;
-        }),
+        bottomNavigationBar: BottomNavBarCheck(
+          context,
+          () async {
+            if (context.read<UserDetailsStorageBloc>().state.isLoggedIn ==
+                false) {
+              showPopup(
+                  context: context,
+                  description: "You need to Login First",
+                  title: "Login Required",
+                  type: ToastificationType.error);
+              Navigator.pushNamed(context, "/login");
+              return;
+            }
+            var loginState = context.read<UserDetailsStorageBloc>().state;
+            bool confirmed = await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Confirmation'),
+                      content: Text('Are you sure you want to proceed?'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('Cancel'),
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pop(false); // Dismiss dialog and return false
+                          },
+                        ),
+                        BlocBuilder<ParticularAccommodationCubit,
+                            ParticularAccommodationState>(
+                          builder: (context, state) {
+                            if (state is ParticularAccommodationLoaded) {
+                              return TextButton(
+                                child: Text('Confirm'),
+                                onPressed: () {
+                                  context.read<RequestBookingCubit>()
+                                    ..requestBooking(
+                                        token: loginState.user!.token!,
+                                        roomId: state.rooms![0].id!);
+                                  context
+                                      .read<FetchBookingRequestCubit>()
+                                      .fetchBookingRequests(
+                                        token: loginState.user!.token!,
+                                      );
+                                  Navigator.of(context)
+                                      .pop(); // Dismiss dialog and return true
+                                },
+                              );
+                            }
+                            return InkWell(
+                                onTap: () => Navigator.pop(context),
+                                child: Text("Please Wait"));
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                ) ??
+                false;
+          },
+        ),
         body: BlocBuilder<ParticularAccommodationCubit,
             ParticularAccommodationState>(
           builder: (context, state) {
@@ -148,7 +167,7 @@ class RentalRoomViewScreen extends StatelessWidget {
                                   child: AccommodationExtraDetails(
                                     topHead: "Price",
                                     body: Text(
-                                      "Rs ${accommodation.monthly_rate}",
+                                      "Rs //${accommodation.monthly_rate}",
                                       style: TextStyle(
                                           color: UsedColors.fadeOutColor,
                                           fontSize: 12,
@@ -278,7 +297,7 @@ class RentalRoomViewScreen extends StatelessWidget {
               );
             }
             return Column(
-              children: [Text("$data")],
+              children: [Text("")],
             );
           },
         ),

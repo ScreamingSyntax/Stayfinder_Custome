@@ -11,107 +11,125 @@ class HotelWithoutTierViewScreen extends StatelessWidget {
   const HotelWithoutTierViewScreen({super.key, required this.data});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: UsedColors.backgroundColor,
-      body: BlocBuilder<ParticularAccommodationCubit,
-          ParticularAccommodationState>(
-        builder: (context, state) {
-          if (state is ParticularAccommodationLoading) {
-            return Center(
-              child: CustomLoadingWidget(
-                text: "Fetching Accommodation",
-              ),
-            );
-          }
-          if (state is ParticularAccommodationInitial) {
-            loadAccommodation(context, data['id']);
-          }
-          if (state is ParticularAccommodationError) {
-            return CustomErrorScreen(
-              message: state.error,
-              onPressed: () => loadAccommodation(context, data['id']),
-            );
-          }
-          if (state is ParticularAccommodationLoaded) {
-            Accommodation accommodation = state.accommodation!;
-            List<Room> rooms = state.rooms!;
-            return RefreshIndicator(
-              onRefresh: () async {
-                return loadAccommodation(context, data['id']);
-              },
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MainAccommodationPicture(accommodation: accommodation),
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomAccommodationViewBanner(
-                            name: accommodation.name!,
-                            city: accommodation.city!,
-                            onPressed: () {},
-                            address: accommodation.address!,
-                          ),
-                          SizedBox(
-                            height: 32,
-                          ),
-                          Text(
-                            "Amenities",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w400),
-                          ),
-                          SizedBox(
-                            height: 19,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(1.0),
-                            child: CustomAmenitiesScrollable(
-                                room: Room(), accommodation: accommodation),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Text(
-                            "Rooms",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w400),
-                          ),
-                          SizedBox(
-                            height: 19,
-                          ),
-                          Container(
-                            height: 450,
-                            child: ListView.builder(
-                              // padding: EdgeInsets.all(10),
-                              shrinkWrap: true,
-                              itemCount: rooms.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: HotelWithoutTierRoomCard(
-                                    room: rooms[index],
-                                    accommodation: accommodation,
-                                  ),
-                                );
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+    return BlocListener<AddToWishlistCubit, AddToWishlistState>(
+      listener: (context, state) {
+        if (state is AddToWishlistError) {
+          showPopup(
+              context: context,
+              description: state.message,
+              title: "Oops..",
+              type: ToastificationType.error);
+        }
+        if (state is AddToWishlistSuccess) {
+          showPopup(
+              context: context,
+              description: state.message,
+              title: "Success",
+              type: ToastificationType.success);
+        }
+      },
+      child: Scaffold(
+        backgroundColor: UsedColors.backgroundColor,
+        body: BlocBuilder<ParticularAccommodationCubit,
+            ParticularAccommodationState>(
+          builder: (context, state) {
+            if (state is ParticularAccommodationLoading) {
+              return Center(
+                child: CustomLoadingWidget(
+                  text: "Fetching Accommodation",
                 ),
-              ),
+              );
+            }
+            if (state is ParticularAccommodationInitial) {
+              loadAccommodation(context, data['id']);
+            }
+            if (state is ParticularAccommodationError) {
+              return CustomErrorScreen(
+                message: state.error,
+                onPressed: () => loadAccommodation(context, data['id']),
+              );
+            }
+            if (state is ParticularAccommodationLoaded) {
+              Accommodation accommodation = state.accommodation!;
+              List<Room> rooms = state.rooms!;
+              return RefreshIndicator(
+                onRefresh: () async {
+                  return loadAccommodation(context, data['id']);
+                },
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MainAccommodationPicture(accommodation: accommodation),
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomAccommodationViewBanner(
+                              name: accommodation.name!,
+                              city: accommodation.city!,
+                              onPressed: () {},
+                              address: accommodation.address!,
+                            ),
+                            SizedBox(
+                              height: 32,
+                            ),
+                            Text(
+                              "Amenities",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(
+                              height: 19,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(1.0),
+                              child: CustomAmenitiesScrollable(
+                                  room: Room(), accommodation: accommodation),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Text(
+                              "Rooms",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(
+                              height: 19,
+                            ),
+                            Container(
+                              height: 450,
+                              child: ListView.builder(
+                                // padding: EdgeInsets.all(10),
+                                shrinkWrap: true,
+                                itemCount: rooms.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: HotelWithoutTierRoomCard(
+                                      room: rooms[index],
+                                      accommodation: accommodation,
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }
+            return Column(
+              children: [],
             );
-          }
-          return Column(
-            children: [],
-          );
-        },
+          },
+        ),
       ),
     );
   }

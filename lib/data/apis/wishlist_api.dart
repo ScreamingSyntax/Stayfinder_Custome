@@ -25,7 +25,10 @@ class WishListApiProvider {
     try {
       final url = "${getIp()}book/wishlist/";
       final request = await http.post(Uri.parse(url),
-          headers: {"Authorization": "Token $token"},
+          headers: {
+            "Authorization": "Token $token",
+            "Content-Type": "application/json",
+          },
           body: jsonEncode({"id": id}));
 
       final body = jsonDecode(request.body);
@@ -40,7 +43,10 @@ class WishListApiProvider {
     try {
       final url = "${getIp()}book/wishlist/";
       final request = await http.delete(Uri.parse(url),
-          headers: {"Authorization": "Token $token"},
+          headers: {
+            "Authorization": "Token $token",
+            "Content-Type": "application/json",
+          },
           body: jsonEncode({"id": id}));
       final body = jsonDecode(request.body);
       return Success.fromMap(body);

@@ -11,171 +11,193 @@ class HotelWithTierViewScreen extends StatelessWidget {
   const HotelWithTierViewScreen({super.key, required this.data});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: UsedColors.backgroundColor,
-      body: BlocBuilder<ParticularAccommodationCubit,
-          ParticularAccommodationState>(
-        builder: (context, state) {
-          if (state is ParticularAccommodationLoading) {
-            return Center(
-              child: CustomLoadingWidget(
-                text: "Fetching Accommodation",
-              ),
-            );
-          }
-          if (state is ParticularAccommodationInitial) {
-            loadAccommodation(context, data['id']);
-          }
-          if (state is ParticularAccommodationError) {
-            return CustomErrorScreen(
-              message: state.error,
-              onPressed: () => loadAccommodation(context, data['id']),
-            );
-          }
-          if (state is ParticularAccommodationLoaded) {
-            Accommodation accommodation = state.accommodation!;
-            List<HotelTier> hotelTier = state.hotel_tier!;
-            return RefreshIndicator(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      MainAccommodationPicture(accommodation: accommodation),
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomAccommodationViewBanner(
-                              name: accommodation.name!,
-                              city: accommodation.city!,
-                              onPressed: () {},
-                              address: accommodation.address!,
-                            ),
-                            SizedBox(
-                              height: 32,
-                            ),
-                            Text(
-                              "Amenities",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w400),
-                            ),
-                            SizedBox(
-                              height: 19,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(1.0),
-                              child: CustomAmenitiesScrollable(
-                                  room: Room(), accommodation: accommodation),
-                            ),
-                            SizedBox(
-                              height: 19,
-                            ),
-                            Text(
-                              "Tiers",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w400),
-                            ),
-                            ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: hotelTier.length,
-                                itemBuilder: (context, index) {
-                                  if (hotelTier[index].rooms == null ||
-                                      hotelTier[index].rooms!.length <= 0) {
-                                    return SizedBox();
-                                  }
-                                  return Container(
-                                    // color: Colors.black,
-                                    child: Column(
-                                      children: [
-                                        CustomHotelTierDescriptionCard(
-                                            hotelTier: hotelTier[index]),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        Container(
-                                          height: 350,
-                                          child: ListView.builder(
-                                              shrinkWrap: true,
-                                              itemCount: hotelTier[index]
-                                                  .rooms!
-                                                  .length,
-                                              scrollDirection: Axis.horizontal,
-                                              itemBuilder:
-                                                  (context, roomIndex) {
-                                                return Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: HotelWithTierRoomCard(
-                                                    room: hotelTier[index]
-                                                        .rooms![roomIndex]!,
-                                                    onPressed: () {
-                                                      if (context
-                                                              .read<
-                                                                  UserDetailsStorageBloc>()
-                                                              .state
-                                                              .isLoggedIn ==
-                                                          false) {
-                                                        showPopup(
-                                                            context: context,
-                                                            description:
-                                                                "You need to Login First",
-                                                            title:
-                                                                "Login Required",
-                                                            type:
-                                                                ToastificationType
-                                                                    .error);
-                                                        Navigator.pushNamed(
-                                                            context, "/login");
-                                                        return;
-                                                      }
-                                                      context.read<
-                                                          StoreBookDetailsCubit>()
-                                                        ..clearEverything();
-                                                      print(
-                                                          "The room si ${hotelTier[index].rooms![index]}");
-                                                      context.read<
-                                                          StoreBookDetailsCubit>()
-                                                        ..storeRoomDetails(
-                                                            room:
-                                                                hotelTier[index]
-                                                                        .rooms![
-                                                                    roomIndex],
-                                                            roomId: hotelTier[
-                                                                    index]
-                                                                .rooms![
-                                                                    roomIndex]!
-                                                                .id!,
-                                                            accommodation:
-                                                                accommodation);
-                                                      Navigator.pushNamed(
-                                                          context, "/book");
-                                                    },
-                                                  ),
-                                                );
-                                              }),
-                                        ),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                })
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+    return BlocListener<AddToWishlistCubit, AddToWishlistState>(
+      listener: (context, state) {
+        if (state is AddToWishlistError) {
+          showPopup(
+              context: context,
+              description: state.message,
+              title: "Oops..",
+              type: ToastificationType.error);
+        }
+        if (state is AddToWishlistSuccess) {
+          showPopup(
+              context: context,
+              description: state.message,
+              title: "Success",
+              type: ToastificationType.success);
+        }
+      },
+      child: Scaffold(
+        backgroundColor: UsedColors.backgroundColor,
+        body: BlocBuilder<ParticularAccommodationCubit,
+            ParticularAccommodationState>(
+          builder: (context, state) {
+            if (state is ParticularAccommodationLoading) {
+              return Center(
+                child: CustomLoadingWidget(
+                  text: "Fetching Accommodation",
                 ),
-                onRefresh: () async {
-                  return loadAccommodation(context, data['id']);
-                });
-          }
-          return Column(
-            children: [Text("hotel With Tier View Screen")],
-          );
-        },
+              );
+            }
+            if (state is ParticularAccommodationInitial) {
+              loadAccommodation(context, data['id']);
+            }
+            if (state is ParticularAccommodationError) {
+              return CustomErrorScreen(
+                message: state.error,
+                onPressed: () => loadAccommodation(context, data['id']),
+              );
+            }
+            if (state is ParticularAccommodationLoaded) {
+              Accommodation accommodation = state.accommodation!;
+              List<HotelTier> hotelTier = state.hotel_tier!;
+              return RefreshIndicator(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        MainAccommodationPicture(accommodation: accommodation),
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomAccommodationViewBanner(
+                                name: accommodation.name!,
+                                city: accommodation.city!,
+                                onPressed: () {},
+                                address: accommodation.address!,
+                              ),
+                              SizedBox(
+                                height: 32,
+                              ),
+                              Text(
+                                "Amenities",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w400),
+                              ),
+                              SizedBox(
+                                height: 19,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: CustomAmenitiesScrollable(
+                                    room: Room(), accommodation: accommodation),
+                              ),
+                              SizedBox(
+                                height: 19,
+                              ),
+                              Text(
+                                "Tiers",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w400),
+                              ),
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: hotelTier.length,
+                                  itemBuilder: (context, index) {
+                                    if (hotelTier[index].rooms == null ||
+                                        hotelTier[index].rooms!.length <= 0) {
+                                      return SizedBox();
+                                    }
+                                    return Container(
+                                      // color: Colors.black,
+                                      child: Column(
+                                        children: [
+                                          CustomHotelTierDescriptionCard(
+                                              hotelTier: hotelTier[index]),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          Container(
+                                            height: 350,
+                                            child: ListView.builder(
+                                                shrinkWrap: true,
+                                                itemCount: hotelTier[index]
+                                                    .rooms!
+                                                    .length,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemBuilder:
+                                                    (context, roomIndex) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child:
+                                                        HotelWithTierRoomCard(
+                                                      room: hotelTier[index]
+                                                          .rooms![roomIndex]!,
+                                                      onPressed: () {
+                                                        if (context
+                                                                .read<
+                                                                    UserDetailsStorageBloc>()
+                                                                .state
+                                                                .isLoggedIn ==
+                                                            false) {
+                                                          showPopup(
+                                                              context: context,
+                                                              description:
+                                                                  "You need to Login First",
+                                                              title:
+                                                                  "Login Required",
+                                                              type:
+                                                                  ToastificationType
+                                                                      .error);
+                                                          Navigator.pushNamed(
+                                                              context,
+                                                              "/login");
+                                                          return;
+                                                        }
+                                                        context.read<
+                                                            StoreBookDetailsCubit>()
+                                                          ..clearEverything();
+                                                        print(
+                                                            "The room si ${hotelTier[index].rooms![index]}");
+                                                        context.read<
+                                                            StoreBookDetailsCubit>()
+                                                          ..storeRoomDetails(
+                                                              room: hotelTier[
+                                                                          index]
+                                                                      .rooms![
+                                                                  roomIndex],
+                                                              roomId: hotelTier[
+                                                                      index]
+                                                                  .rooms![
+                                                                      roomIndex]!
+                                                                  .id!,
+                                                              accommodation:
+                                                                  accommodation);
+                                                        Navigator.pushNamed(
+                                                            context, "/book");
+                                                      },
+                                                    ),
+                                                  );
+                                                }),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  })
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  onRefresh: () async {
+                    return loadAccommodation(context, data['id']);
+                  });
+            }
+            return Column(
+              children: [Text("hotel With Tier View Screen")],
+            );
+          },
+        ),
       ),
     );
   }

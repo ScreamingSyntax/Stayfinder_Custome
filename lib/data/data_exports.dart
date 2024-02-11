@@ -18,3 +18,6 @@ export 'models/wishlist_model.dart';
 export 'repositories/wishlist_repository.dart';
 export 'repositories/user_repository.dart';
 export 'apis/wishlist_api.dart';
+export 'models/review_model.dart';
+export 'apis/review_apis.dart';
+export 'repositories/review_repository.dart';

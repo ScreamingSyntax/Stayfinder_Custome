@@ -153,6 +153,7 @@ class BookStatusScreen extends StatelessWidget {
                     height: 10,
                   ),
                   BookRequestCustomCard(
+                    image: accommodation.image!,
                     onPressed: () {
                       context.read<StoreBookDetailsCubit>()..clearEverything();
                       print("The room si ${room}");
@@ -241,6 +242,7 @@ class BookStatusScreen extends StatelessWidget {
                     height: 10,
                   ),
                   CurrentlyBookedCard(
+                    image: accommodation.image!,
                     accommodationType: accommodation.type!,
                     date: "${bookModel.check_in} - ${bookModel.check_out}",
                     location: "${accommodation.city}, ${accommodation.address}",
