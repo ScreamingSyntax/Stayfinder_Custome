@@ -75,6 +75,45 @@ class BookingApiProvider {
     }
   }
 
+  Future<Success> viewParicularBooking(
+      {required String token, required String id}) async {
+    try {
+      final url = Uri.parse("${getIp()}book/details/?id=${id}");
+      final request = await http.get(url, headers: {
+        "Authorization": "Token ${token}",
+        'Content-Type': 'application/json; charset=UTF-8',
+      });
+      final response = json.decode(request.body);
+      print(response);
+      Success success = Success.fromMap(response);
+      return success;
+    } catch (e) {
+      return Success(success: 0, message: "Check your internet connection");
+    }
+  }
+
+  Future<List<BookModel>> fetchBookingsToReview({required String token}) async {
+    try {
+      final url = "${getIp()}review/toReview/";
+      final request = await http
+          .get(Uri.parse(url), headers: {"Authorization": "Token $token"});
+      final body = jsonDecode(request.body);
+      print(body);
+      if (body['success'] == 0) {
+        return [BookModel.withError(body["message"])];
+      }
+      print("Dadad");
+      // print(body["data"]);
+      if (body["data"] == []) {
+        return [];
+      }
+      return List.from(body["data"]).map((e) => BookModel.fromMap(e)).toList();
+    } catch (e) {
+      print(e);
+      return [BookModel.withError("Please Check Your Internet Connection")];
+    }
+  }
+
   Future<List<BookingRequest>> fetchBookingRequestHistory(
       {required String token}) async {
     try {

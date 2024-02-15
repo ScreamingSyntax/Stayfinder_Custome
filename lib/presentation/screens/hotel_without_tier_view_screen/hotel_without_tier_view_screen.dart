@@ -61,65 +61,16 @@ class HotelWithoutTierViewScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MainAccommodationPicture(accommodation: accommodation),
+                      HotelWithoutTierTopView(accommodation: accommodation),
                       Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomAccommodationViewBanner(
-                              name: accommodation.name!,
-                              city: accommodation.city!,
-                              onPressed: () {},
-                              address: accommodation.address!,
-                            ),
-                            SizedBox(
-                              height: 32,
-                            ),
-                            Text(
-                              "Amenities",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w400),
-                            ),
-                            SizedBox(
-                              height: 19,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(1.0),
-                              child: CustomAmenitiesScrollable(
-                                  room: Room(), accommodation: accommodation),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Text(
-                              "Rooms",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w400),
-                            ),
-                            SizedBox(
-                              height: 19,
-                            ),
-                            Container(
-                              height: 450,
-                              child: ListView.builder(
-                                // padding: EdgeInsets.all(10),
-                                shrinkWrap: true,
-                                itemCount: rooms.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: HotelWithoutTierRoomCard(
-                                      room: rooms[index],
-                                      accommodation: accommodation,
-                                    ),
-                                  );
-                                },
-                              ),
-                            )
-                          ],
-                        ),
-                      )
+                        padding: const EdgeInsets.all(10.0),
+                        child: CustomReviewSection(context: context),
+                      ),
+                      SizedBox(
+                        height: 19,
+                      ),
+                      HotelWithoutTierRoomsView(
+                          rooms: rooms, accommodation: accommodation)
                     ],
                   ),
                 ),
@@ -129,6 +80,143 @@ class HotelWithoutTierViewScreen extends StatelessWidget {
               children: [],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class HotelWithoutTierRoomsView extends StatelessWidget {
+  const HotelWithoutTierRoomsView({
+    super.key,
+    required this.rooms,
+    required this.accommodation,
+  });
+
+  final List<Room> rooms;
+  final Accommodation accommodation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.grey.withOpacity(0.2),
+        //     spreadRadius: 2,
+        //     blurRadius: 7,
+        //     offset: Offset(0, 3), // changes position of shadow
+        //   ),
+        // ],
+        color: UsedColors.cardColor,
+        // borderRadius: BorderRadius.all(Radius.circular(20)),
+        // border: Border.all(color: UsedColors.fadeOutColor, width: 1)
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(
+                "Rooms To Book",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ),
+            SizedBox(
+              height: 19,
+            ),
+            Container(
+              height: 450,
+              child: ListView.builder(
+                padding: EdgeInsets.all(0),
+                // padding: EdgeInsets.all(10),
+                shrinkWrap: true,
+                itemCount: rooms.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: HotelWithoutTierRoomCard(
+                      room: rooms[index],
+                      accommodation: accommodation,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class HotelWithoutTierTopView extends StatelessWidget {
+  const HotelWithoutTierTopView({
+    super.key,
+    required this.accommodation,
+  });
+
+  final Accommodation accommodation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+          color: UsedColors.cardColor,
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          // border: Border.all(color: UsedColors.fadeOutColor, width: 1)
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomAccommodationViewBanner(
+                name: accommodation.name!,
+                city: accommodation.city!,
+                onPressed: () {},
+                address: accommodation.address!,
+              ),
+              SizedBox(
+                height: 32,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Amenities",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                    SizedBox(
+                      height: 19,
+                    ),
+                    CustomAmenitiesScrollable(
+                        room: Room(), accommodation: accommodation),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -148,9 +236,18 @@ class HotelWithoutTierRoomCard extends StatelessWidget {
       width: 341,
       height: 440,
       decoration: BoxDecoration(
-          color: UsedColors.cardColor,
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          border: Border.all(color: UsedColors.fadeOutColor, width: 1)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+        color: UsedColors.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+        // border: Border.all(color: UsedColors.fadeOutColor, width: 1)
+      ),
       child: Column(
         children: [
           CachedNetworkImage(
@@ -286,33 +383,38 @@ class HotelWithoutTierRoomCard extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                       CustomMaterialButton(
+                          buttonColor: room.room_count == 0
+                              ? UsedColors.mainColor.withOpacity(0.2)
+                              : null,
                           height: 39,
-                          onPressed: () {
-                            if (context
-                                    .read<UserDetailsStorageBloc>()
-                                    .state
-                                    .isLoggedIn ==
-                                false) {
-                              showPopup(
-                                  context: context,
-                                  description: "You need to Login First",
-                                  title: "Login Required",
-                                  type: ToastificationType.error);
-                              Navigator.pushNamed(context, "/login");
-                              return;
-                            }
-                            context.read<StoreBookDetailsCubit>()
-                              ..clearEverything();
-                            print("The room si ${room}");
-                            context.read<StoreBookDetailsCubit>()
-                              ..storeRoomDetails(
-                                  room: room,
-                                  roomId: room.id!,
-                                  accommodation: accommodation);
-                            Navigator.pushNamed(context, "/book");
-                          },
-                          text: "Book",
-                          width: 120)
+                          onPressed: room.room_count == 0
+                              ? () {}
+                              : () {
+                                  if (context
+                                          .read<UserDetailsStorageBloc>()
+                                          .state
+                                          .isLoggedIn ==
+                                      false) {
+                                    showPopup(
+                                        context: context,
+                                        description: "You need to Login First",
+                                        title: "Login Required",
+                                        type: ToastificationType.error);
+                                    Navigator.pushNamed(context, "/login");
+                                    return;
+                                  }
+                                  context.read<StoreBookDetailsCubit>()
+                                    ..clearEverything();
+                                  print("The room si ${room}");
+                                  context.read<StoreBookDetailsCubit>()
+                                    ..storeRoomDetails(
+                                        room: room,
+                                        roomId: room.id!,
+                                        accommodation: accommodation);
+                                  Navigator.pushNamed(context, "/book");
+                                },
+                          text: room.room_count == 0 ? "Unavailable" : "Book",
+                          width: 120),
                     ],
                   ),
                 )

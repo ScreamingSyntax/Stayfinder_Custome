@@ -52,7 +52,14 @@ class AppRouter {
             builder: (_) => HostelViewScreen(
                   map: settings.arguments as Map,
                 ));
-
+      case "/myReviews":
+        return MaterialPageRoute(builder: (_) => MyReviews());
+      case "/toReview":
+        return MaterialPageRoute(builder: (_) => ToReviewScreen());
+      case "/resetPass":
+        return MaterialPageRoute(builder: (_) => ResetPaswordScreen());
+      case "/forgotPass":
+        return MaterialPageRoute(builder: (_) => ForgotPasswordEmailScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

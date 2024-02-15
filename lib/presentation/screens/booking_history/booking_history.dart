@@ -32,90 +32,94 @@ class BookingHistoryScreen extends StatelessWidget {
             return SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: CustomRedHatFont(
-                            text: "Booking History",
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
                       ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    if (state.bookModel.length == 0)
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 300,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/no_results_found.png"))),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              " No Bookings Yet",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  // color: UsedColors.mainColor,
-                                  fontWeight: FontWeight.w400),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: CustomRedHatFont(
+                              text: "Booking History",
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      if (state.bookModel.length == 0)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 300,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/no_results_found.png"))),
                             ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      ),
-                    ListView.builder(
-                        itemCount: state.bookModel.length,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          BookModel bookModel = state.bookModel[index];
-                          Accommodation accommodation =
-                              bookModel.room!.accommodation!;
-                          RoomAccommodation room = bookModel.room!;
-                          return Column(
-                            children: [
-                              SizedBox(
-                                height: 10,
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                " No Bookings Yet",
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    // color: UsedColors.mainColor,
+                                    fontWeight: FontWeight.w400),
                               ),
-                              CurrentlyBookedCard(
-                                image: accommodation.image!,
-                                accommodationType: accommodation.type!,
-                                date:
-                                    "${bookModel.check_in} - ${bookModel.check_out}",
-                                location:
-                                    "${accommodation.city}, ${accommodation.address}",
-                                name: accommodation.name!,
-                                price: bookModel.paid_amount!,
-                                ratings: "5",
-                                roomBookedDetails:
-                                    accommodation.type == "rent_room"
-                                        ? ""
-                                        : room.seater_beds.toString(),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          );
-                        }),
-                  ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                      ListView.builder(
+                          itemCount: state.bookModel.length,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            BookModel bookModel = state.bookModel[index];
+                            Accommodation accommodation =
+                                bookModel.room!.accommodation!;
+                            RoomAccommodation room = bookModel.room!;
+                            return Column(
+                              children: [
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                CurrentlyBookedCard(
+                                  onPressed: () => pushBookingDetails(
+                                      context: context, booked: bookModel),
+                                  image: accommodation.image!,
+                                  accommodationType: accommodation.type!,
+                                  date:
+                                      "${bookModel.check_in} - ${bookModel.check_out}",
+                                  location:
+                                      "${accommodation.city}, ${accommodation.address}",
+                                  name: accommodation.name!,
+                                  price: bookModel.paid_amount!,
+                                  ratings: "5",
+                                  roomBookedDetails:
+                                      accommodation.type == "rent_room"
+                                          ? ""
+                                          : room.seater_beds.toString(),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            );
+                          }),
+                    ],
+                  ),
                 ),
               ),
             );

@@ -34,13 +34,13 @@ class ReviewRepository {
       {required String title,
       required String token,
       required String description,
-      required int accommodation,
+      required int bookId,
       File? image}) async {
     return await _reviewApiProvider.addReview(
         title: title,
         token: token,
         description: description,
-        accommodation: accommodation,
+        bookId: bookId,
         image: image);
   }
 }

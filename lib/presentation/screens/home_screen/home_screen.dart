@@ -88,6 +88,9 @@ class HomeScreen extends StatelessWidget {
                                     state.accommodation[index];
                                 context.read<ParticularAccommodationCubit>()
                                   ..fetchAccommodation(accommodation.id!);
+                                context.read<FetchAccommodationReviewsCubit>()
+                                  ..fetchAccommodationReviews(
+                                      id: accommodation.id!);
                                 NavigateToAccommodation(accommodation, context);
                               },
                               child: CustomAccommodationCard(

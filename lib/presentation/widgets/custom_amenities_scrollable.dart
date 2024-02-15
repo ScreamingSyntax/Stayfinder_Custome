@@ -150,27 +150,24 @@ class CustomAmenitiesCardRoom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Visibility(
       visible: value ?? false,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 2.0),
-        child: Column(
-          children: [
-            Icon(
-              icon,
-              color: UsedColors.fadeOutColor,
-              size: 25,
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              text,
-              style: TextStyle(
-                  fontSize: 12,
-                  color: UsedColors.fadeOutColor,
-                  fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
+      child: Column(
+        children: [
+          Icon(
+            icon,
+            color: UsedColors.fadeOutColor,
+            size: 20,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            text,
+            style: TextStyle(
+                fontSize: 10,
+                color: UsedColors.fadeOutColor,
+                fontWeight: FontWeight.w500),
+          ),
+        ],
       ),
     );
   }

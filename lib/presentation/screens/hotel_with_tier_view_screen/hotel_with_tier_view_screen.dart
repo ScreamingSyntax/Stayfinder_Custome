@@ -55,44 +55,105 @@ class HotelWithTierViewScreen extends StatelessWidget {
               return RefreshIndicator(
                   child: SingleChildScrollView(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MainAccommodationPicture(accommodation: accommodation),
                         Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 2,
+                                  blurRadius: 7,
+                                  offset: Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CustomAccommodationViewBanner(
+                                  name: accommodation.name!,
+                                  city: accommodation.city!,
+                                  onPressed: () {},
+                                  address: accommodation.address!,
+                                ),
+                                SizedBox(
+                                  height: 32,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Amenities",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      SizedBox(
+                                        height: 19,
+                                      ),
+                                      CustomAmenitiesScrollable(
+                                          room: Room(),
+                                          accommodation: accommodation),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 19,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
                           padding: const EdgeInsets.all(20.0),
+                          child: CustomReviewSection(context: context),
+                        ),
+                        SizedBox(
+                          height: 19,
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 7,
+                                offset:
+                                    Offset(0, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CustomAccommodationViewBanner(
-                                name: accommodation.name!,
-                                city: accommodation.city!,
-                                onPressed: () {},
-                                address: accommodation.address!,
-                              ),
-                              SizedBox(
-                                height: 32,
-                              ),
-                              Text(
-                                "Amenities",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w400),
-                              ),
-                              SizedBox(
-                                height: 19,
-                              ),
                               Padding(
-                                padding: const EdgeInsets.all(1.0),
-                                child: CustomAmenitiesScrollable(
-                                    room: Room(), accommodation: accommodation),
+                                padding: const EdgeInsets.all(25.0),
+                                child: Text(
+                                  "Tiers",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400),
+                                ),
                               ),
                               SizedBox(
-                                height: 19,
-                              ),
-                              Text(
-                                "Tiers",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w400),
+                                height: 10,
                               ),
                               ListView.builder(
+                                  padding: EdgeInsetsDirectional.all(0),
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemCount: hotelTier.length,
@@ -182,7 +243,7 @@ class HotelWithTierViewScreen extends StatelessWidget {
                                         ],
                                       ),
                                     );
-                                  })
+                                  }),
                             ],
                           ),
                         ),
@@ -217,9 +278,18 @@ class CustomHotelTierDescriptionCard extends StatelessWidget {
       width: 341,
       height: 225,
       decoration: BoxDecoration(
-          color: UsedColors.cardColor,
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          border: Border.all(color: UsedColors.fadeOutColor, width: 1)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+        color: UsedColors.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+        // border: Border.all(color: UsedColors.fadeOutColor, width: 1)
+      ),
       child: Column(
         children: [
           CachedNetworkImage(
@@ -323,10 +393,19 @@ class HotelWithTierRoomCard extends StatelessWidget {
     return Container(
       width: 341,
       height: 310,
+      // padding: ,
       decoration: BoxDecoration(
-          color: UsedColors.cardColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+          color: UsedColors.backgroundColor,
           borderRadius: BorderRadius.all(Radius.circular(20)),
-          border: Border.all(color: UsedColors.fadeOutColor, width: 1)),
+          border: Border.all(color: UsedColors.mainColor.withOpacity(0.2))),
       child: Column(
         children: [
           Padding(
@@ -419,9 +498,12 @@ class HotelWithTierRoomCard extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                       CustomMaterialButton(
+                          buttonColor: room.room_count == 0
+                              ? UsedColors.mainColor.withOpacity(0.2)
+                              : null,
                           height: 39,
-                          onPressed: onPressed,
-                          text: "Book",
+                          onPressed: room.room_count == 0 ? () {} : onPressed,
+                          text: room.room_count == 0 ? "Unavailable" : "Book",
                           width: 120)
                     ],
                   ),

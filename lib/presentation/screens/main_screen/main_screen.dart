@@ -15,6 +15,7 @@ class MainScreen extends StatelessWidget {
         outlineBorderColor: UsedColors.borderColorFade,
         backgroundColor: UsedColors.cardColor,
         onTap: (index) {
+          print("The idnex is ${index}");
           return context.read<NavBarIndexCubit>()..changeIndex(index);
         },
         items: getItems(),

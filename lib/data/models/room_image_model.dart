@@ -2,13 +2,13 @@
 import 'dart:convert';
 
 class RoomImage {
-  int id;
-  String images;
-  int room;
+  int? id;
+  String? images;
+  int? room;
   RoomImage({
-    required this.id,
-    required this.images,
-    required this.room,
+    this.id,
+    this.images,
+    this.room,
   });
 
   RoomImage copyWith({
@@ -33,9 +33,9 @@ class RoomImage {
 
   factory RoomImage.fromMap(Map<String, dynamic> map) {
     return RoomImage(
-      id: map['id'] as int,
-      images: map['images'] as String,
-      room: map['room'] as int,
+      id: map['id'] != null ? map['id'] as int : null,
+      images: map['images'] != null ? map['images'] as String : null,
+      room: map['room'] != null ? map['room'] as int : null,
     );
   }
 

@@ -12,6 +12,8 @@ class CustomTextFormField extends StatelessWidget {
   double? borderRadius;
   bool? isEnabled;
   bool? obscureText;
+  final int? maxLines;
+  final int? minLines;
   TextEditingController? controller;
   void Function()? suffixIconOnPressed;
   void Function(String?)? onSaved;
@@ -32,7 +34,9 @@ class CustomTextFormField extends StatelessWidget {
       this.autoFocus,
       this.isEnabled,
       this.onSaved,
-      this.filledColor}) {
+      this.filledColor,
+      this.maxLines,
+      this.minLines}) {
     this.contentCenter = contentCenter ?? true;
   }
 
@@ -45,6 +49,8 @@ class CustomTextFormField extends StatelessWidget {
       validator: validator,
       obscureText: obscureText ?? false,
       onSaved: onSaved ?? null,
+      minLines: minLines,
+      maxLines: maxLines ?? 1,
       decoration: InputDecoration(
           enabled: isEnabled ?? true,
           isDense: true,

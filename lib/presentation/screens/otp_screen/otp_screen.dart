@@ -1,6 +1,4 @@
-import 'package:cherry_toast/cherry_toast.dart';
 import 'package:stayfinder_customer/logic/logic_exports.dart';
-import 'package:stayfinder_customer/presentation/theme/colors.dart';
 import 'package:stayfinder_customer/presentation/widgets/widgets_export.dart';
 
 class OtpScreen extends StatelessWidget {

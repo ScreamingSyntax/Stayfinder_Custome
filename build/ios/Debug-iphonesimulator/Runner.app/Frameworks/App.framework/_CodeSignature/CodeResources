@@ -10,11 +10,11 @@
 		</data>
 		<key>flutter_assets/AssetManifest.bin</key>
 		<data>
-		7ySeBOSnAsMxjqRT8KEkxAqX0JM=
+		8xuW6BuxchP4EqMc0MfPDzZ/VpY=
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		xTOyAndCFubPL7DwH8wp5thxOxs=
+		gwyVTT3lV0+Dirs6rj1tLIvXaq4=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>flutter_assets/NOTICES.Z</key>
 		<data>
-		PdIuYRBPXOMKavhV2Vns07E2Ifw=
+		NCu/BewZIXk6cWkviCzusy0FMd4=
 		</data>
 		<key>flutter_assets/assets/fonts/Italiana/Italiana-Regular.ttf</key>
 		<data>
@@ -144,6 +144,10 @@
 		<data>
 		UGQYv+N+tW7ier2Fc76SMk/cEnA=
 		</data>
+		<key>flutter_assets/assets/images/forgot_password.png</key>
+		<data>
+		JmiSgjMtqe9Zopn2M/qhJroMQ94=
+		</data>
 		<key>flutter_assets/assets/images/hostel.png</key>
 		<data>
 		oeNKQsfYg160IBP/ENBS+YwixlY=
@@ -230,7 +234,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		oeBi7y1oZR1nQyZdgqKS5REinpY=
+		vjorD4mNpS0ETTijur3nkocUnuY=
 		</data>
 		<key>flutter_assets/packages/boxicons/fonts/Boxicons.ttf</key>
 		<data>
@@ -343,14 +347,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			SDQ4AbZqOdUAOGBTxODzyEZmFDJMz6aw2srgHAQbgNo=
+			eAVspA+1XcrP7lvl9XV02NEgoQA2ksGcBiMti4ZKtfA=
 			</data>
 		</dict>
 		<key>flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			sIHFaoalrJ26g17mDHc5ruvSH8K4DAQ0em3RsANmyfQ=
+			lkCCkw7FXYyj9FUT65feOXo5n6jy5TAK1igESJmGL9Y=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -364,7 +368,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Aa4f5gmirK67ynemcV1efnY1Pq1BKybCCrMr4p2Z6e4=
+			aSn7/5iFtSHg3JvuuB3PF40dGnff9LTQo8Ykc4JRsMY=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/fonts/Italiana/Italiana-Regular.ttf</key>
@@ -577,6 +581,13 @@
 			9alkJZn8FKeom4NekBrcji5HJZMZj9EnkN9DPLlOVzE=
 			</data>
 		</dict>
+		<key>flutter_assets/assets/images/forgot_password.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8lxB/9ObZ/jrQdKNq6k6mp5HGZIFuhK3AlCc1Pe0HmY=
+			</data>
+		</dict>
 		<key>flutter_assets/assets/images/hostel.png</key>
 		<dict>
 			<key>hash2</key>
@@ -728,7 +739,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5HO+kMnfd3NJ0j6OsRh6I0j7I9Zdte01ANE/OZv8QiI=
+			cb7jIvZfxaRMb/C5Mp1/1MkxxZik70Pci7LTK9hSNG0=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/boxicons/fonts/Boxicons.ttf</key>

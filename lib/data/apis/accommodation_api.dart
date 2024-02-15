@@ -5,7 +5,6 @@ import 'package:stayfinder_customer/constants/ip.dart';
 import 'package:stayfinder_customer/data/data_exports.dart';
 // import 'package:http/http.dart' as http;
 import 'package:http/http.dart' as http;
-import 'package:stayfinder_customer/presentation/widgets/widgets_export.dart';
 
 class AccommodationApiProvider {
   Dio dio = new Dio();

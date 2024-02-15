@@ -1,5 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+
 import '../data_exports.dart';
 
 class Success {
@@ -15,9 +19,7 @@ class Success {
     this.error,
     this.data,
   });
-  Success.withError(String error) {
-    this.error = error;
-  }
+
   Success copyWith({
     int? success,
     String? message,
@@ -34,12 +36,16 @@ class Success {
     );
   }
 
+  Success.withError(String error) {
+    this.error = error;
+  }
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'success': success,
       'message': message,
       'token': token,
       'error': error,
+      'data': data,
     };
   }
 
@@ -49,6 +55,9 @@ class Success {
       message: map['message'] != null ? map['message'] as String : null,
       token: map['token'] != null ? map['token'] as String : null,
       error: map['error'] != null ? map['error'] as String : null,
+      data: map['data'] != null
+          ? Map<String, dynamic>.from((map['data'] as Map<String, dynamic>))
+          : null,
     );
   }
 
@@ -70,7 +79,7 @@ class Success {
         other.message == message &&
         other.token == token &&
         other.error == error &&
-        other.data == data;
+        mapEquals(other.data, data);
   }
 
   @override

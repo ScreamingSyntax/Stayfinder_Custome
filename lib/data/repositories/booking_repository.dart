@@ -24,6 +24,11 @@ class BookingRepository {
         paidAmount: paidAmount);
   }
 
+  Future<Success> viewParticularBookingDetails(
+      {required String token, required String id}) async {
+    return _bookingApiProvider.viewParicularBooking(token: token, id: id);
+  }
+
   Future<List<BookingRequest>> fetchBookingRequestHistory(
       {required String token}) async {
     return await _bookingApiProvider.fetchBookingRequestHistory(token: token);
@@ -31,6 +36,10 @@ class BookingRepository {
 
   Future<List<BookModel>> fetchBookingHistory({required String token}) async {
     return await _bookingApiProvider.fetchBookingHistory(token: token);
+  }
+
+  Future<List<BookModel>> fetchBookingsToReview({required String token}) async {
+    return await _bookingApiProvider.fetchBookingsToReview(token: token);
   }
 
   Future<Success> fetchBookRequests({

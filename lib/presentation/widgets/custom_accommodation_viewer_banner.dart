@@ -14,34 +14,36 @@ class CustomAccommodationViewBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              name,
-              style: TextStyle(
-                  color: UsedColors.textColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500),
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: TextStyle(
+                      color: UsedColors.textColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                ),
+                SizedBox(
+                  height: 7,
+                ),
+                Text(
+                  city + ", " + address,
+                  style: TextStyle(
+                      color: UsedColors.textColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600),
+                ),
+              ],
             ),
-            SizedBox(
-              height: 7,
-            ),
-            Text(
-              city + ", " + address,
-              style: TextStyle(
-                  color: UsedColors.textColor,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600),
-            ),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
+          ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
@@ -63,9 +65,9 @@ class CustomAccommodationViewBanner extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

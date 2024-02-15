@@ -3,7 +3,27 @@ import 'package:stayfinder_customer/logic/logic_exports.dart';
 import 'package:stayfinder_customer/presentation/screens/screens_export.dart';
 import 'package:stayfinder_customer/presentation/widgets/widgets_export.dart';
 
-class BookStatusScreen extends StatelessWidget {
+class BookStatusScreen extends StatefulWidget {
+  @override
+  State<BookStatusScreen> createState() => _BookStatusScreenState();
+}
+
+class _BookStatusScreenState extends State<BookStatusScreen>
+    with TickerProviderStateMixin {
+  TabController? _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -59,61 +79,98 @@ class BookStatusScreen extends StatelessWidget {
                   token:
                       context.read<UserDetailsStorageBloc>().state.user!.token!,
                   context: context);
+              return SizedBox();
             }
             if (state is FetchBookingRequestSuccesss) {
-              return RefreshIndicator(
-                onRefresh: () async {
-                  var loginState = context.read<UserDetailsStorageBloc>().state;
-                  context.read<FetchBookingRequestCubit>().fetchBookingRequests(
-                        token: loginState.user!.token!,
-                      );
-                },
-                child: SingleChildScrollView(
-                  child: SizedBox(
-                    child: Column(
-                      children: [
-                        if (state.bookedCustomers.length == 0 &&
-                            state.bookingRequests.length == 0)
-                          Column(
-                            children: [
-                              Text(
-                                "Your Bookings",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w500),
+              return Column(
+                children: [
+                  if (state.bookedCustomers.length == 0 &&
+                      state.bookingRequests.length == 0)
+                    RefreshIndicator(
+                      onRefresh: () async {
+                        var loginState =
+                            context.read<UserDetailsStorageBloc>().state;
+                        context
+                            .read<FetchBookingRequestCubit>()
+                            .fetchBookingRequests(
+                              token: loginState.user!.token!,
+                            );
+                      },
+                      child: SingleChildScrollView(
+                        physics: AlwaysScrollableScrollPhysics(),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Your Bookings",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Container(
+                              height: 300,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/no_results_found.png"))),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "You haven't booked a place to stay yet.",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 12, wordSpacing: 2),
                               ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Container(
-                                height: 300,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/no_results_found.png"))),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "You haven't booked a place to stay yet.",
-                                  textAlign: TextAlign.center,
-                                  style:
-                                      TextStyle(fontSize: 12, wordSpacing: 2),
-                                ),
-                              )
-                            ],
-                          ),
-                        CurrentBookings(state),
-                        SizedBox(
-                          height: 20,
+                            )
+                          ],
                         ),
-                        BookingRequests(state),
-                      ],
+                      ),
                     ),
+                  if (state.bookedCustomers.length != 0 ||
+                      state.bookingRequests.length != 0)
+                    Material(
+                      child: TabBar(
+                        controller: _tabController,
+                        tabs: [
+                          Tab(text: "Bookings"),
+                          Tab(text: "Requests"),
+                        ],
+                      ),
+                    ),
+                  if (state.bookedCustomers.length != 0 ||
+                      state.bookingRequests.length != 0)
+                    Expanded(
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          CurrentBookings(state),
+                          BookingRequests(state),
+                        ]
+                            .map((e) => RefreshIndicator(
+                                onRefresh: () async {
+                                  var loginState = context
+                                      .read<UserDetailsStorageBloc>()
+                                      .state;
+                                  context
+                                      .read<FetchBookingRequestCubit>()
+                                      .fetchBookingRequests(
+                                        token: loginState.user!.token!,
+                                      );
+                                },
+                                child: SingleChildScrollView(
+                                    physics: AlwaysScrollableScrollPhysics(),
+                                    child: e)))
+                            .toList(),
+                      ),
+                    ),
+                  SizedBox(
+                    height: 20,
                   ),
-                ),
+                ],
               );
             }
             return Column(
@@ -128,17 +185,34 @@ class BookStatusScreen extends StatelessWidget {
   Column BookingRequests(FetchBookingRequestSuccesss state) {
     return Column(
       children: [
-        if (state.bookingRequests.length != 0)
-          Align(
-            alignment: Alignment.center,
-            child: CustomRedHatFont(
-                text: "Your Requests",
-                fontWeight: FontWeight.w600,
-                fontSize: 18),
+        if (state.bookingRequests.length == 0)
+          Column(
+            children: [
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                height: 300,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image:
+                            AssetImage("assets/images/no_results_found.png"))),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "You have no requests Yet",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12, wordSpacing: 2),
+                ),
+              )
+            ],
           ),
-        SizedBox(
-          height: 19,
-        ),
+
+        // if (state.bookingRequests.length != 0)
         ListView.builder(
             itemCount: state.bookingRequests.length,
             shrinkWrap: true,
@@ -216,17 +290,33 @@ class BookStatusScreen extends StatelessWidget {
   Column CurrentBookings(FetchBookingRequestSuccesss state) {
     return Column(
       children: [
-        if (state.bookedCustomers.length != 0)
-          Align(
-            alignment: Alignment.center,
-            child: CustomRedHatFont(
-                text: "Currently Booked",
-                fontWeight: FontWeight.w600,
-                fontSize: 18),
+        // if (state.bookedCustomers.length != 0)
+        if (state.bookedCustomers.length == 0)
+          Column(
+            children: [
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                height: 300,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image:
+                            AssetImage("assets/images/no_results_found.png"))),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "You donot have active bookings",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12, wordSpacing: 2),
+                ),
+              )
+            ],
           ),
-        SizedBox(
-          height: 19,
-        ),
         ListView.builder(
             itemCount: state.bookedCustomers.length,
             shrinkWrap: true,
@@ -242,6 +332,8 @@ class BookStatusScreen extends StatelessWidget {
                     height: 10,
                   ),
                   CurrentlyBookedCard(
+                    onPressed: () =>
+                        pushBookingDetails(context: context, booked: bookModel),
                     image: accommodation.image!,
                     accommodationType: accommodation.type!,
                     date: "${bookModel.check_in} - ${bookModel.check_out}",

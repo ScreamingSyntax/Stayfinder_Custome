@@ -4,45 +4,49 @@ import 'dart:convert';
 import 'package:stayfinder_customer/data/data_exports.dart';
 
 class ReviewModel {
+  int? id;
   String? title;
   String? description;
   String? image;
   Accommodation? accommodation;
-  UserModel? userModel;
+  UserModel? customer;
   bool? is_deleted;
   String? added_time;
   String? error;
+  ReviewModel.withError(String error) {
+    this.error = error;
+  }
+
   ReviewModel({
+    this.id,
     this.title,
     this.description,
     this.image,
     this.accommodation,
-    this.userModel,
+    this.customer,
     this.is_deleted,
     this.added_time,
     this.error,
   });
 
-  ReviewModel.withError(String error) {
-    this.error = error;
-  }
-
   ReviewModel copyWith({
+    int? id,
     String? title,
     String? description,
     String? image,
     Accommodation? accommodation,
-    UserModel? userModel,
+    UserModel? customer,
     bool? is_deleted,
     String? added_time,
     String? error,
   }) {
     return ReviewModel(
+      id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
       image: image ?? this.image,
       accommodation: accommodation ?? this.accommodation,
-      userModel: userModel ?? this.userModel,
+      customer: customer ?? this.customer,
       is_deleted: is_deleted ?? this.is_deleted,
       added_time: added_time ?? this.added_time,
       error: error ?? this.error,
@@ -51,11 +55,12 @@ class ReviewModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'title': title,
       'description': description,
       'image': image,
       'accommodation': accommodation?.toMap(),
-      'userModel': userModel?.toMap(),
+      'customer': customer?.toMap(),
       'is_deleted': is_deleted,
       'added_time': added_time,
       'error': error,
@@ -64,6 +69,7 @@ class ReviewModel {
 
   factory ReviewModel.fromMap(Map<String, dynamic> map) {
     return ReviewModel(
+      id: map['id'] != null ? map['id'] as int : null,
       title: map['title'] != null ? map['title'] as String : null,
       description:
           map['description'] != null ? map['description'] as String : null,
@@ -71,8 +77,8 @@ class ReviewModel {
       accommodation: map['accommodation'] != null
           ? Accommodation.fromMap(map['accommodation'] as Map<String, dynamic>)
           : null,
-      userModel: map['userModel'] != null
-          ? UserModel.fromMap(map['userModel'] as Map<String, dynamic>)
+      customer: map['customer'] != null
+          ? UserModel.fromMap(map['customer'] as Map<String, dynamic>)
           : null,
       is_deleted: map['is_deleted'] != null ? map['is_deleted'] as bool : null,
       added_time:
@@ -88,18 +94,19 @@ class ReviewModel {
 
   @override
   String toString() {
-    return 'ReviewModel(title: $title, description: $description, image: $image, accommodation: $accommodation, userModel: $userModel, is_deleted: $is_deleted, added_time: $added_time, error: $error)';
+    return 'ReviewModel(id: $id, title: $title, description: $description, image: $image, accommodation: $accommodation, customer: $customer, is_deleted: $is_deleted, added_time: $added_time, error: $error)';
   }
 
   @override
   bool operator ==(covariant ReviewModel other) {
     if (identical(this, other)) return true;
 
-    return other.title == title &&
+    return other.id == id &&
+        other.title == title &&
         other.description == description &&
         other.image == image &&
         other.accommodation == accommodation &&
-        other.userModel == userModel &&
+        other.customer == customer &&
         other.is_deleted == is_deleted &&
         other.added_time == added_time &&
         other.error == error;
@@ -107,11 +114,12 @@ class ReviewModel {
 
   @override
   int get hashCode {
-    return title.hashCode ^
+    return id.hashCode ^
+        title.hashCode ^
         description.hashCode ^
         image.hashCode ^
         accommodation.hashCode ^
-        userModel.hashCode ^
+        customer.hashCode ^
         is_deleted.hashCode ^
         added_time.hashCode ^
         error.hashCode;

@@ -82,4 +82,42 @@ class UserApiProvider {
       return Success(success: 0, message: "Network Error");
     }
   }
+
+  Future<Success> resetPassword(
+      {required String oldPass,
+      required String newPass,
+      required String token}) async {
+    try {
+      final url = "${getIp()}customer/reset/";
+      final request = await http.patch(Uri.parse(url),
+          body: jsonEncode({'old_pass': oldPass, 'new_pass': newPass}),
+          headers: {
+            'Authorization': 'Token $token',
+            'Content-Type': 'application/json; charset=UTF-8'
+          });
+      return Success.fromMap(jsonDecode(request.body));
+    } catch (e) {
+      return Success(success: 0, message: "Connection Error");
+    }
+  }
+
+  Future<Success> forgotPassword(
+      {required String email, String? newPassword, String? otp}) async {
+    try {
+      final url = "${getIp()}customer/forgotPass/";
+      Map data = {'email': email};
+      if (otp != null) {
+        data['otp'] = otp;
+      }
+      if (newPassword != null) {
+        data['new_pass'] = newPassword;
+      }
+      final request = await http.post(Uri.parse(url),
+          body: jsonEncode(data),
+          headers: {'Content-Type': 'application/json; charset=UTF-8'});
+      return Success.fromMap(jsonDecode(request.body));
+    } catch (e) {
+      return Success(success: 0, message: "Connection Error");
+    }
+  }
 }

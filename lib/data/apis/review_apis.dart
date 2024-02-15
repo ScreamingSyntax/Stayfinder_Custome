@@ -11,14 +11,18 @@ class ReviewApiProvider {
       final request = await http.get(Uri.parse(url));
       final body = jsonDecode(request.body);
       // return await List.from(÷)
+      print(body);
       int success = body['success'];
+      print("A");
       if (success == 0) {
         return [ReviewModel.withError(body['message'])];
       }
+      print("A");
       return await List.from(body["data"])
           .map((e) => ReviewModel.fromMap(e))
           .toList();
     } catch (e) {
+      print(e);
       return [ReviewModel.withError("Connection Error")];
     }
   }
@@ -27,17 +31,23 @@ class ReviewApiProvider {
       {required String token}) async {
     try {
       final url = "${getIp()}review/customer/";
-      final request = await http.get(Uri.parse(url));
+      final request = await http.get(
+          Uri.parse(
+            url,
+          ),
+          headers: {'Authorization': 'Token $token'});
       final body = jsonDecode(request.body);
       // return await LisAt.from(÷)
       int success = body['success'];
       if (success == 0) {
         return [ReviewModel.withError(body['message'])];
       }
+      print(body);
       return await List.from(body["data"])
           .map((e) => ReviewModel.fromMap(e))
           .toList();
     } catch (e) {
+      print("This is the exce~ption");
       return [ReviewModel.withError("Connection Error")];
     }
   }
@@ -70,6 +80,7 @@ class ReviewApiProvider {
         'description': description,
       };
       request.fields['id'] = id.toString();
+      request.headers['Authorization'] = 'Token $token';
       fields.forEach((key, value) {
         if (value != null) {
           request.fields[key] = value.toString();
@@ -97,7 +108,7 @@ class ReviewApiProvider {
       {required String title,
       required String token,
       required String description,
-      required int accommodation,
+      required int bookId,
       File? image}) async {
     try {
       final url = "${getIp()}review/";
@@ -105,7 +116,8 @@ class ReviewApiProvider {
       request.fields['title'] = title;
       request.headers['Authorization'] = "Token $token";
       request.fields['description'] = description;
-      request.fields['accommodation'] = accommodation.toString();
+      request.fields['booking'] = bookId.toString();
+      print("This is the image $image");
       if (image != null) {
         request.files.add(http.MultipartFile(
           'image',
@@ -116,10 +128,15 @@ class ReviewApiProvider {
         ));
       }
       final response = await request.send();
+      print(response);
       final finalResponse = await http.Response.fromStream(response);
+      print(finalResponse);
+
       final responseData = jsonDecode(finalResponse.body);
+      print(responseData);
       return Success.fromMap(responseData);
-    } catch (Exception) {
+    } catch (e) {
+      print("This is something that wen't wrong ${e}");
       return Success(success: 0, message: "Network Error");
     }
   }

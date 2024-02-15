@@ -40,7 +40,7 @@ class LoginScreen extends StatelessWidget {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Container(
-            height: 100,
+            height: 150,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,15 +59,15 @@ class LoginScreen extends StatelessWidget {
                   height: 10,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       "Donot Have and Account?",
                       style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                          TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(
-                      width: 10,
+                      width: 5,
                     ),
                     InkWell(
                       onTap: () {
@@ -78,7 +78,7 @@ class LoginScreen extends StatelessWidget {
                       child: Text(
                         'Register',
                         style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: UsedColors.fadeTextColor),
                       ),
@@ -164,6 +164,24 @@ class LoginScreen extends StatelessWidget {
                       );
                     },
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/forgotPass");
+                      },
+                      child: Text(
+                        "Forgot Password",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
