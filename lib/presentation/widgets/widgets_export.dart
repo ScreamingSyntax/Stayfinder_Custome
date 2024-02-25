@@ -47,3 +47,4 @@ export 'custom_main_view.dart';
 export 'custom_checkbox_tile.dart';
 export 'custom_booking_details_navigator.dart';
 export 'custom_pop_exit.dart';
+export 'fetch_notifications_call.dart';

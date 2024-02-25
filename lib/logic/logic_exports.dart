@@ -43,3 +43,4 @@ export 'cubits/fetch_to_review_booking/fetch_to_review_cubit.dart';
 export 'cubits/fetch_particular_booking/fetch_particular_booking_details_cubit.dart';
 export 'cubits/rest_pass_cubit/reset_pass_cubit.dart';
 export 'cubits/forgot_pass/forgot_pass_cubit.dart';
+export 'cubits/fetch_notifications/fetch_notifications_cubit.dart';

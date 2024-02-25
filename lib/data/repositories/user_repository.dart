@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:flutter/rendering.dart';
 import 'package:stayfinder_customer/data/data_exports.dart';
 
 class UserRepository {

@@ -32,6 +32,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => BookingRequestHistoryScreen());
       case "/wishList":
         return MaterialPageRoute(builder: (_) => WishListScreen());
+      case "/notification":
+        return MaterialPageRoute(builder: (_) => NotificationScreen());
       case "/rentalScreenView":
         return MaterialPageRoute(
             builder: (_) => RentalRoomViewScreen(

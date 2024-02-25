@@ -175,7 +175,25 @@ class TopHomeBody extends StatelessWidget {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [StayFinderLogo(), Icon(IconlyLight.notification)],
+          children: [
+            StayFinderLogo(),
+            InkWell(
+                onTap: () {
+                  var state = context.read<UserDetailsStorageBloc>().state;
+                  if (state.isLoggedIn == false) {
+                    showPopup(
+                        context: context,
+                        description: "You need to login to view notifications",
+                        title: "Error",
+                        type: ToastificationType.info);
+                  }
+                  if (state.isLoggedIn == true) {
+                    fetchNotificationsCall(context);
+                    Navigator.pushNamed(context, "/notification");
+                  }
+                },
+                child: Icon(IconlyLight.notification))
+          ],
         ),
         SizedBox(
           height: 8,

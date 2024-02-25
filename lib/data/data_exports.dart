@@ -21,4 +21,6 @@ export 'apis/wishlist_api.dart';
 export 'models/review_model.dart';
 export 'apis/review_apis.dart';
 export 'repositories/review_repository.dart';
-// export '';
+export 'models/notification_model.dart';
+export 'apis/notification_api.dart';
+export 'repositories/notification_repository.dart';

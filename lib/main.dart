@@ -6,8 +6,10 @@ import 'package:stayfinder_customer/utils/image_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory());
+
   runApp(MyApp(
     appRouter: AppRouter(),
   ));
@@ -58,7 +60,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => FetchParticularBookingDetailsCubit()),
         BlocProvider(create: (context) => ResetPassCubit()),
         BlocProvider(create: (context) => ForgotPassCubit()),
-        // BlocProvider(create: (context) => StoreTempUserDetailsCubit()),
+        BlocProvider(create: (context) => FetchNotificationsCubit()),
       ],
       child: KhaltiScope(
           publicKey: "test_public_key_0238ecd9cab54ca29a0c6d523ddb0d3c",
