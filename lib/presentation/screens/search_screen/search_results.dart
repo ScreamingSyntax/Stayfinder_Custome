@@ -33,8 +33,15 @@ class SearchResults extends StatelessWidget {
                         ),
                         Expanded(
                           child: InkWell(
-                            onTap: () =>
-                                Navigator.pushNamed(context, "/search"),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) =>
+                                          SearchScreen(onBackPressed: () {
+                                            Navigator.pop(context);
+                                          })));
+                            },
                             child: CustomTextFormField(
                               isEnabled: false,
                               hintText: "Search Accommodations",

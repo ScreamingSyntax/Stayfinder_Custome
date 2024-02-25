@@ -75,9 +75,24 @@ class RentalRoomBookingScreen extends StatelessWidget {
               child: SingleChildScrollView(
                   child: Column(children: [
                 Column(children: [
-                  CustomMainImageVIew(
-                    imageLink:
-                        "${getIpNoBackSlash()}${state.accommodation!.image}",
+                  Stack(
+                    children: [
+                      CustomMainImageVIew(
+                        imageLink:
+                            "${getIpNoBackSlash()}${state.accommodation!.image}",
+                      ),
+                      Positioned(
+                          left: 20,
+                          top: 20,
+                          child: SafeArea(
+                              child: InkWell(
+                            onTap: () => Navigator.pop(context),
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                            ),
+                          )))
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.all(15.0),

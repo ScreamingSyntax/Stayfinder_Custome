@@ -49,6 +49,17 @@ class MainAccommodationPicture extends StatelessWidget {
                           fit: BoxFit.cover,
                           image: AssetImage("assets/logos/logo.png"))),
                 )),
+        Positioned(
+            top: 30,
+            left: 20,
+            child: SafeArea(
+                child: InkWell(
+              onTap: () => Navigator.pop(context),
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+            ))),
         BlocProvider(
           create: (context) => BooleanChangeCubit(),
           child: Builder(builder: (context) {

@@ -1,5 +1,6 @@
 import 'package:stayfinder_customer/data/data_exports.dart';
 import 'package:stayfinder_customer/logic/logic_exports.dart';
+import 'package:stayfinder_customer/presentation/screens/screens_export.dart';
 import 'package:stayfinder_customer/presentation/widgets/widgets_export.dart';
 
 class CategoryViewScreen extends StatelessWidget {
@@ -15,10 +16,41 @@ class CategoryViewScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                CustomTextFormField(
-                  hintText: "Search Accommodations",
-                  suffixIcon: IconlyLight.search,
-                  onTapOutside: (p0) => FocusScope.of(context).unfocus(),
+                Row(
+                  children: [
+                    InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: UsedColors.mainColor,
+                        )),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          context.read<StoreSearchCubit>()..reset();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      SearchScreen(onBackPressed: () {
+                                        Navigator.pop(context);
+                                      })));
+                        },
+                        child: CustomTextFormField(
+                          isEnabled: false,
+                          hintText: "Search Accommodations",
+                          suffixIcon: IconlyLight.search,
+                          onTapOutside: (p0) =>
+                              FocusScope.of(context).unfocus(),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 ListView.builder(
                     itemCount: accommodation.length,

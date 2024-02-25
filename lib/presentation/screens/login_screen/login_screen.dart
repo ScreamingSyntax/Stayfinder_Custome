@@ -97,6 +97,17 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Text("data")
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: UsedColors.mainColor,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Text(
                     "Welcome Back",
                     style: TextStyle(

@@ -12,8 +12,8 @@ class AppRouter {
         return checkOnBoardingStatus();
       case "/main":
         return MaterialPageRoute(builder: (_) => MainScreen());
-      case "/search":
-        return MaterialPageRoute(builder: (_) => SearchScreen());
+      // case "/search":
+      //   return MaterialPageRoute(builder: (_) => SearchScreen());
       case "/searchResults":
         return MaterialPageRoute(builder: (_) => SearchResults());
       case "/login":

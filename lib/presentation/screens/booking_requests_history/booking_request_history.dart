@@ -40,15 +40,26 @@ class BookingRequestHistoryScreen extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: CustomRedHatFont(
-                              text: "Book Request History",
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18),
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                              onTap: () => Navigator.pop(context),
+                              child: Icon(Icons.arrow_back)),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: CustomRedHatFont(
+                                  text: "Booking Request History",
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 1,
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: 20,

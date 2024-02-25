@@ -66,6 +66,7 @@ class ForgotPasswordEmailScreen extends StatelessWidget {
                     hintText: "Email",
                     borderRadius: 10,
                     contentCenter: false,
+                    onTapOutside: (p0) => FocusScope.of(context).unfocus(),
                     validator: (p0) {
                       if (!(p0!.isValidEmail())) {
                         return "Invalid Email";

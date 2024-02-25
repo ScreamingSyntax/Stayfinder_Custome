@@ -56,6 +56,34 @@ class ForgotPasswordConfirmationScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        height: 5,
+                      ),
+                      SafeArea(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: InkWell(
+                            onTap: () {
+                              showExitPopup(
+                                  context: context,
+                                  message:
+                                      "Do you really want to cancel this operation? ",
+                                  title: "Confirmation",
+                                  noBtnFunction: () => Navigator.pop(context),
+                                  yesBtnFunction: () {
+                                    popMultipleScreens(context, 3);
+                                  });
+                            },
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: UsedColors.mainColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       CustomRedHatFont(
                           text: "New Pass",
                           fontWeight: FontWeight.w500,

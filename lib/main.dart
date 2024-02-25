@@ -1,3 +1,4 @@
+import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:stayfinder_customer/logic/logic_exports.dart';
 import 'package:stayfinder_customer/presentation/config/app_router.dart';
@@ -9,7 +10,8 @@ void main() async {
 
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory());
-
+  await FlutterMapTileCaching.initialise();
+  await FMTC.instance('mapStore').manage.createAsync();
   runApp(MyApp(
     appRouter: AppRouter(),
   ));
@@ -61,6 +63,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ResetPassCubit()),
         BlocProvider(create: (context) => ForgotPassCubit()),
         BlocProvider(create: (context) => FetchNotificationsCubit()),
+        BlocProvider(create: (context) => StoreUserLocationCubit()),
+        BlocProvider(create: (context) => CategorizeMapViewCubit()),
       ],
       child: KhaltiScope(
           publicKey: "test_public_key_0238ecd9cab54ca29a0c6d523ddb0d3c",

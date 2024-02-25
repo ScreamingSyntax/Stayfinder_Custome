@@ -36,7 +36,7 @@ Grow your business with additional
         bottomNavigationBar: TextButton(
             onPressed: () {
               if (this.index == 2) {
-                Navigator.pushNamed(context, "/main");
+                Navigator.pushReplacementNamed(context, "/main");
               } else {
                 buttonCarsouselController.nextPage();
                 context.read<OnBoardingBloc>()..add(ChangeEvent());
@@ -56,7 +56,7 @@ Grow your business with additional
                     TextButton(
                         onPressed: () {
                           context.read<OnBoardingBloc>()..add(ChangeEvent());
-                          Navigator.pushNamed(context, "/main");
+                          Navigator.pushReplacementNamed(context, "/main");
                         },
                         child: Hero(tag: "here", child: Text("Skip")))
                   ],

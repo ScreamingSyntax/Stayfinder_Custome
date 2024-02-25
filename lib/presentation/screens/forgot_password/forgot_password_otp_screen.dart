@@ -43,9 +43,38 @@ class ForgotPasswordOtpScreen extends StatelessWidget {
           physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 100,
+                height: 20,
+              ),
+              SafeArea(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: InkWell(
+                    onTap: () {
+                      showExitPopup(
+                          context: context,
+                          message:
+                              "Do you really want to cancel this operation? ",
+                          title: "Confirmation",
+                          noBtnFunction: () => Navigator.pop(context),
+                          yesBtnFunction: () {
+                            popMultipleScreens(context, 3);
+                          });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 29.0),
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: UsedColors.mainColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 80,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),

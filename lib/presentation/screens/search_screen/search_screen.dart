@@ -3,7 +3,10 @@ import 'package:stayfinder_customer/logic/logic_exports.dart';
 import '../../widgets/widgets_export.dart';
 
 class SearchScreen extends StatelessWidget {
+  final void Function() onBackPressed;
   TextEditingController searchController = new TextEditingController();
+
+  SearchScreen({super.key, required this.onBackPressed});
   @override
   Widget build(BuildContext context) {
     searchController.text = context.read<StoreSearchCubit>().state.searchValue;
@@ -17,8 +20,7 @@ class SearchScreen extends StatelessWidget {
                 Row(
                   children: [
                     InkWell(
-                        onTap: () => Navigator.pushNamedAndRemoveUntil(
-                            context, "/", (route) => false),
+                        onTap: onBackPressed,
                         child: Icon(IconlyLight.arrow_left)),
                     SizedBox(
                       width: 10,

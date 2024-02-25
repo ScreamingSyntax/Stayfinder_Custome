@@ -1,3 +1,3 @@
-String getIp() => "http://0.0.0.0:3333/";
+String getIp() => "http://192.168.1.79:3333/";
 
-String getIpNoBackSlash() => "http://0.0.0.0:3333";
+String getIpNoBackSlash() => "http://192.168.1.79:3333";

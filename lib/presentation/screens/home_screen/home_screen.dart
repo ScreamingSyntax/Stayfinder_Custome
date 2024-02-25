@@ -4,6 +4,7 @@ import 'package:stayfinder_customer/logic/logic_exports.dart';
 import 'package:stayfinder_customer/presentation/widgets/widgets_export.dart';
 
 import '../category_view/category_view_screen.dart';
+import '../screens_export.dart';
 
 class HomeScreen extends StatelessWidget {
   Future<void> callApiViewAccommodations(BuildContext context) async {
@@ -51,7 +52,12 @@ class HomeScreen extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         context.read<StoreSearchCubit>()..reset();
-                        Navigator.pushNamed(context, "/search");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => SearchScreen(onBackPressed: () {
+                                      Navigator.pop(context);
+                                    })));
                       },
                       child: CustomTextFormField(
                         isEnabled: false,

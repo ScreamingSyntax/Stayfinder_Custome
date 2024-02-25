@@ -10,11 +10,11 @@
 		</data>
 		<key>flutter_assets/AssetManifest.bin</key>
 		<data>
-		8xuW6BuxchP4EqMc0MfPDzZ/VpY=
+		Xs83EX0nvu6mdYfBIyPXCNvcpME=
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		gwyVTT3lV0+Dirs6rj1tLIvXaq4=
+		ThEB+r2djxiyj1hGL019/ARPgoE=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>flutter_assets/NOTICES.Z</key>
 		<data>
-		NCu/BewZIXk6cWkviCzusy0FMd4=
+		bLZqKYlvkw3gkren5NiUff8OW/0=
 		</data>
 		<key>flutter_assets/assets/fonts/Italiana/Italiana-Regular.ttf</key>
 		<data>
@@ -234,7 +234,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		qhIp5YOnmBNzxNXXMprct9TYlns=
+		gpr9b48+O4T3VQTv8+qliQEh+3U=
 		</data>
 		<key>flutter_assets/packages/boxicons/fonts/Boxicons.ttf</key>
 		<data>
@@ -243,6 +243,10 @@
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
 		P7bb/oR3EhwqCIH1M6LyTuBIWYU=
+		</data>
+		<key>flutter_assets/packages/flutter_map/lib/assets/flutter_map_logo.png</key>
+		<data>
+		kUCCgXRmQ7Ql3lxXrdQuoudq1L8=
 		</data>
 		<key>flutter_assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf</key>
 		<data>
@@ -347,14 +351,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			eAVspA+1XcrP7lvl9XV02NEgoQA2ksGcBiMti4ZKtfA=
+			naXYrjNkgpo5Vi5wf/awR96lYl8h2XlZsya6uYat0z0=
 			</data>
 		</dict>
 		<key>flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			lkCCkw7FXYyj9FUT65feOXo5n6jy5TAK1igESJmGL9Y=
+			cCLHcviA4VEN/ZvqGsU1r/PgNa7ZfSRZYmfcvRug9vk=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -368,7 +372,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			aSn7/5iFtSHg3JvuuB3PF40dGnff9LTQo8Ykc4JRsMY=
+			VF48KqwGMF8HBYOy4VnnsfcDuxRkxIJz/4lk/KV/rNE=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/fonts/Italiana/Italiana-Regular.ttf</key>
@@ -739,7 +743,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fl3iWG40/DXo2sQaPKt4QKN2uO3KTpU44nIe8MiNjKQ=
+			S9CF2a8YcRG3yndvpngjcB023cHtoud57SpCKpdrg4Q=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/boxicons/fonts/Boxicons.ttf</key>
@@ -754,6 +758,13 @@
 			<key>hash2</key>
 			<data>
 			x6NX+tjyECiQtyzbbjyY8U2zoZ7GDbJtE+T+k/dzgI0=
+			</data>
+		</dict>
+		<key>flutter_assets/packages/flutter_map/lib/assets/flutter_map_logo.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			YFGuQvtQWTGoM+WPkgmp+WZppNDks/BvbYLN4SoOBAE=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf</key>

@@ -122,12 +122,6 @@
       "languageVersion": "2.15"
     },
     {
-      "name": "dio_cache_interceptor",
-      "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/dio_cache_interceptor-3.5.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.14"
-    },
-    {
       "name": "dot_navigation_bar",
       "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/dot_navigation_bar-1.0.2",
       "packageUri": "lib/",
@@ -218,8 +212,14 @@
       "languageVersion": "3.0"
     },
     {
-      "name": "flutter_map_cache",
-      "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/flutter_map_cache-1.5.0",
+      "name": "flutter_map_animations",
+      "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/flutter_map_animations-0.5.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "flutter_map_cancellable_tile_provider",
+      "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/flutter_map_cancellable_tile_provider-2.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -282,6 +282,66 @@
       "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/font_awesome_icon_class-0.0.6",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "geocoding",
+      "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/geocoding-2.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "geocoding_android",
+      "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/geocoding_android-3.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "geocoding_ios",
+      "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/geocoding_ios-2.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "geocoding_platform_interface",
+      "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/geocoding_platform_interface-3.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "geolocator",
+      "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/geolocator-11.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
+      "name": "geolocator_android",
+      "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/geolocator_android-4.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
+      "name": "geolocator_apple",
+      "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/geolocator_apple-2.3.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
+      "name": "geolocator_platform_interface",
+      "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/geolocator_platform_interface-4.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
+      "name": "geolocator_web",
+      "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/geolocator_web-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
+      "name": "geolocator_windows",
+      "rootUri": "file:///Users/aaryanjha/.pub-cache/hosted/pub.dev/geolocator_windows-0.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
     },
     {
       "name": "hive",
@@ -836,7 +896,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-02-25T14:43:15.537567Z",
+  "generated": "2024-02-25T17:33:05.449544Z",
   "generator": "pub",
   "generatorVersion": "3.1.3"
 }

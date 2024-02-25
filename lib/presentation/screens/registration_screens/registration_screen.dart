@@ -406,6 +406,16 @@ class RegistrationTop extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        InkWell(
+          onTap: () => Navigator.pop(context),
+          child: Icon(
+            Icons.arrow_back,
+            color: UsedColors.mainColor,
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
         Text(
           "Let's Add Your Credentials",
           style: TextStyle(
